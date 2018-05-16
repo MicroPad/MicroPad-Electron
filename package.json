@@ -4,9 +4,10 @@
 	"description": "",
 	"main": "main.js",
 	"scripts": {
-		"start": "electron .",
+		"start": "./node_modules/typescript/bin/tsc --target es6 --module CommonJS main.ts preload.ts; electron .",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"update-core": "rm -rf tmp; git clone https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm install; npm run build; cp -r build ../../core; cd ../..; rm -rf tmp"
+		"update-core": "rm -rf core; rm -rf tmp; git clone https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm install; npm run build; cp -r build ../../core; cd ../..; rm -rf tmp",
+		"postinstall": "./node_modules/.bin/electron-rebuild"
 	},
 	"repository": {
 		"type": "git",
@@ -19,6 +20,11 @@
 	},
 	"homepage": "https://github.com/MicroPad/Electron#readme",
 	"devDependencies": {
-		"electron": "^2.0.0"
+		"electron": "^2.0.0",
+		"electron-rebuild": "^1.7.3",
+		"typescript": "^2.8.3"
+	},
+	"dependencies": {
+		"electron-spellchecker": "^1.1.2"
 	}
 }

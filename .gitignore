@@ -1,4 +1,6 @@
 core/
+main.js
+preload.js
 
 # Created by https://www.gitignore.io/api/node,webstorm,sublimetext
 
