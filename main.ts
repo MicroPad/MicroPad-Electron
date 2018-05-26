@@ -20,6 +20,9 @@ function createWindow() {
 			preload: path.join(__dirname, 'preload.js')
 		}
 	});
+
+	window.setMenu(null);
+
 	window.loadURL(url.format({
 		pathname: 'index.html',
 		protocol: 'file:',
