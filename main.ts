@@ -1,4 +1,4 @@
-import { app, BrowserWindow, protocol, shell, webFrame } from 'electron';
+import { app, BrowserWindow, protocol, shell } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
