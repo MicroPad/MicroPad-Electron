@@ -1,5 +1,7 @@
 import { SpellCheckHandler, ContextMenuListener, ContextMenuBuilder } from 'electron-spellchecker';
 
+getWindow().isElectron = true;
+
 function initSpellcheck() {
 	getWindow().spellCheckHandler = new SpellCheckHandler();
 
@@ -17,6 +19,7 @@ setInterval(() => {
 
 interface IWindow {
 	spellCheckHandler: SpellCheckHandler;
+	isElectron: boolean;
 }
 function getWindow(): IWindow {
 	return window as any;
