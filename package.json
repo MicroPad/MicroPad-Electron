@@ -1,12 +1,12 @@
 {
 	"name": "micropad-electron",
 	"version": "3.1.0",
-	"description": "",
+	"description": "The electron port of MicroPad",
 	"main": "main.js",
 	"scripts": {
 		"start": "./node_modules/typescript/bin/tsc --target es6 --module CommonJS main.ts preload.ts; electron .",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"update-core": "rm -rf core; rm -rf tmp; git clone https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm install; npm run build; cp -r build ../../core; cd ../..; rm -rf tmp",
+		"update-core": "rm -rf core; rm -rf tmp; git clone --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm install; npm run build; cp -r build ../../core; cd ../..; rm -rf tmp",
 		"postinstall": "./node_modules/.bin/electron-rebuild"
 	},
 	"repository": {
