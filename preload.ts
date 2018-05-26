@@ -37,6 +37,7 @@ function initSpellcheck() {
 		});
 
 	ContextMenu({
+		showInspectElement: false,
 		prepend: (params) => {
 			const word: string = params.misspelledWord;
 			if (!word) return [];
