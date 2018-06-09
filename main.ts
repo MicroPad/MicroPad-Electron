@@ -1,4 +1,4 @@
-import { app, BrowserWindow, protocol, shell } from 'electron';
+import { app, BrowserWindow, protocol, shell, Menu, MenuItem } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -21,7 +21,26 @@ function createWindow() {
 		}
 	});
 
-	window.setMenu(null);
+
+	const appMenu = Menu.buildFromTemplate([
+		{
+			label: (process.platform === 'darwin') ? app.getName() : 'File',
+			submenu: [
+				{ role: 'quit' }
+			]
+		},
+		{
+			label: 'View',
+			submenu: [
+				{ role: 'zoomIn' },
+				{ role: 'zoomOut' },
+				{ role: 'resetZoom' }
+			]
+		},
+		{ role: 'windowMenu' }
+	]);
+
+	Menu.setApplicationMenu(appMenu);
 
 	window.loadURL(url.format({
 		pathname: 'index.html',
