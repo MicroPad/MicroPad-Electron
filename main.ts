@@ -31,6 +31,14 @@ function createWindow() {
 			]
 		},
 		{
+			label: 'Edit',
+			submenu: [
+				{ role: 'copy' },
+				{ role: 'cut' },
+				{ role: 'paste' }
+			]
+		},
+		{
 			label: 'View',
 			submenu: [
 				{ role: 'zoomIn' },
