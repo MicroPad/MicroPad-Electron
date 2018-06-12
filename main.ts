@@ -63,4 +63,5 @@ function quitApp() {
 	app.quit();
 }
 
+app.setName('µPad');
 app.on('ready', createWindow);
