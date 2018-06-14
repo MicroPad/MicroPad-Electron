@@ -12,16 +12,17 @@ function createWindow() {
 		callback(url);
 	});
 
+	let preloadPath: string = path.join(__dirname, 'preload.js');
+
 	window = new BrowserWindow({
 		width: 1000,
 		height: 800,
 		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: false,
-			preload: path.join(__dirname, 'preload.js')
+			preload: preloadPath
 		}
 	});
-
 
 	const appMenu = Menu.buildFromTemplate([
 		{

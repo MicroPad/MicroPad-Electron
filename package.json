@@ -1,27 +1,31 @@
 {
-	"name": "micropad-electron",
-	"version": "3.4.3",
+	"name": "micropad",
+	"version": "3.5.3",
 	"description": "The electron port of MicroPad",
 	"main": "main.js",
 	"scripts": {
-		"start": "./node_modules/typescript/bin/tsc --target es6 --module CommonJS main.ts preload.ts; electron .",
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "npm run build; electron .",
+		"build": "./node_modules/typescript/bin/tsc --target es6 --module CommonJS main.ts preload.ts",
 		"update-core": "rm -rf core; rm -rf tmp; git clone --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm install; npm run build; rm build/service-worker.js; cp -r build ../../core; cd ../..; rm -rf tmp",
-		"postinstall": "./node_modules/.bin/electron-rebuild"
+		"pack": "npm run build; electron-builder --dir",
+		"dist": "npm run build; electron-builder"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/MicroPad/Electron.git"
 	},
-	"author": "Nick Webster",
+	"author": {
+		"name": "Nick Webster",
+		"email": "nick@nick.geek.nz"
+	},
 	"license": "MPL-2.0",
 	"bugs": {
 		"url": "https://github.com/MicroPad/Electron/issues"
 	},
-	"homepage": "https://github.com/MicroPad/Electron#readme",
+	"homepage": "https://getmicropad.com",
 	"devDependencies": {
 		"electron": "^2.0.0",
-		"electron-rebuild": "^1.7.3",
+		"electron-builder": "20.14.7",
 		"typescript": "^2.8.3"
 	},
 	"dependencies": {
@@ -30,5 +34,37 @@
 		"electron-context-menu": "^0.9.1",
 		"localforage": "^1.7.1",
 		"typo-js": "^1.0.3"
+	},
+	"build": {
+		"appId": "com.getmicropad.micropad",
+		"productName": "µPad",
+		"asarUnpack": [
+			"preload.js"
+		],
+		"linux": {
+			"target": [
+				"AppImage",
+				"pacman",
+				"tar.gz"
+			],
+			"depends": [
+				"c-ares",
+				"ffmpeg",
+				"gtk3",
+				"http-parser",
+				"libevent",
+				"libvpx",
+				"libxslt",
+				"libxss",
+				"minizip",
+				"nss",
+				"re2",
+				"snappy",
+				"libnotify"
+			],
+			"executableName": "micropad",
+			"icon": "icon.png",
+			"category": "Office"
+		}
 	}
 }

@@ -3,22 +3,26 @@ import * as Typo from 'typo-js';
 import * as fs from 'fs';
 import * as ContextMenu from 'electron-context-menu';
 import * as localforage from 'localforage';
+import * as path from 'path';
 
 interface IWindow {
 	isElectron: boolean;
 }
 
 let userDict: Set<string> = new Set();
-
 function init() {
 	getWindow().isElectron = true;
 
-	initSpellcheck();
+	try {
+		initSpellcheck();
+	} catch (e) {
+		alert(e);
+	}
 }
 
 function initSpellcheck() {
-	const dictAU = new Typo('en_AU', fs.readFileSync('./node_modules/dictionary-en-au/index.aff').toString(), fs.readFileSync('./node_modules/dictionary-en-au/index.dic').toString());
-	const dictUS = new Typo('en_US', fs.readFileSync('./node_modules/dictionary-en-us/index.aff').toString(), fs.readFileSync('./node_modules/dictionary-en-us/index.dic').toString());
+	const dictAU = new Typo('en_AU', fs.readFileSync(path.join(__dirname, 'node_modules/dictionary-en-au/index.aff')).toString(), fs.readFileSync(path.join(__dirname, '/node_modules/dictionary-en-au/index.dic')).toString());
+	const dictUS = new Typo('en_US', fs.readFileSync(path.join(__dirname, '/node_modules/dictionary-en-us/index.aff')).toString(), fs.readFileSync(path.join(__dirname, '/node_modules/dictionary-en-us/index.dic')).toString());
 
 	localforage.getItem('user dict')
 		.then((dict: string[]) => {
