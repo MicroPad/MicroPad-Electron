@@ -43,9 +43,10 @@
 		],
 		"linux": {
 			"target": [
+				"tar.gz",
 				"AppImage",
-				"pacman",
-				"tar.gz"
+				"snap",
+				"pacman"
 			],
 			"depends": [
 				"c-ares",
@@ -65,6 +66,9 @@
 			"executableName": "micropad",
 			"icon": "icon.png",
 			"category": "Office"
+		},
+		"mac": {
+			"category": "public.app-category.productivity"
 		}
 	}
 }
