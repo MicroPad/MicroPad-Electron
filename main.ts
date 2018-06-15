@@ -36,7 +36,9 @@ function createWindow() {
 			submenu: [
 				{ role: 'copy' },
 				{ role: 'cut' },
-				{ role: 'paste' }
+				{ role: 'paste' },
+				{ role: 'selectAll' },
+				{ role: 'delete' }
 			]
 		},
 		{
