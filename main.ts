@@ -34,6 +34,10 @@ function createWindow() {
 		{
 			label: 'Edit',
 			submenu: [
+				{ role: 'undo' },
+				{ role: 'redo' },
+				{ type: 'separator' },
+
 				{ role: 'copy' },
 				{ role: 'cut' },
 				{ role: 'paste' },

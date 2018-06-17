@@ -1,12 +1,12 @@
 {
 	"name": "micropad",
-	"version": "3.5.3",
-	"description": "The electron port of MicroPad",
+	"version": "3.5.4",
+	"description": "µPad is an open digital note taking app.",
 	"main": "main.js",
 	"scripts": {
 		"start": "npm run build; electron .",
 		"build": "./node_modules/typescript/bin/tsc --target es6 --module CommonJS main.ts preload.ts",
-		"update-core": "rm -rf core; rm -rf tmp; git clone --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm install; npm run build; rm build/service-worker.js; cp -r build ../../core; cd ../..; rm -rf tmp",
+		"update-core": "rm -rf core; rm -rf tmp; git clone --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm ci; npm run build; rm build/service-worker.js; cp -r build ../../core; cd ../..; rm -rf tmp",
 		"pack": "npm run build; electron-builder --dir",
 		"dist": "npm run build; electron-builder"
 	},
@@ -46,8 +46,15 @@
 				"tar.gz",
 				"AppImage",
 				"snap",
+				"deb",
+				"rpm",
 				"pacman"
 			],
+			"executableName": "micropad",
+			"icon": "icon.png",
+			"category": "Office"
+		},
+		"pacman": {
 			"depends": [
 				"c-ares",
 				"ffmpeg",
@@ -62,13 +69,11 @@
 				"re2",
 				"snappy",
 				"libnotify"
-			],
-			"executableName": "micropad",
-			"icon": "icon.png",
-			"category": "Office"
+			]
 		},
 		"mac": {
 			"category": "public.app-category.productivity"
-		}
+		},
+		"win": {}
 	}
 }
