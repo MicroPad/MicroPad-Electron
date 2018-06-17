@@ -47,7 +47,6 @@
 				"AppImage",
 				"snap",
 				"deb",
-				"rpm",
 				"pacman"
 			],
 			"executableName": "micropad",
