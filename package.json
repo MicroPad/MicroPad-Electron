@@ -4,11 +4,11 @@
 	"description": "µPad is an open digital note taking app.",
 	"main": "main.js",
 	"scripts": {
-		"start": "npm run build; npx electron .",
+		"start": "yarn build; npx electron .",
 		"build": "npx tsc --target es6 --module CommonJS main.ts preload.ts",
 		"update-core": "rm -rf core; rm -rf tmp; git clone --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; npm ci; npm run build; rm build/service-worker.js; cp -r build ../../core; cd ../..; rm -rf tmp",
-		"pack": "npm run build; npx electron-builder --dir",
-		"dist": "npm run build; npx electron-builder"
+		"pack": "yarn build; npx electron-builder --dir",
+		"dist": "yarn build; npx electron-builder"
 	},
 	"repository": {
 		"type": "git",
