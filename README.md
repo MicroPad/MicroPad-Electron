@@ -21,7 +21,7 @@ You will now find binaries for the app in `Electron/dist`.
 ### Windows
 #### Build the core
 ```Batchfile
-git clone https://github.com/MicroPad/Web
+git clone --depth=1 https://github.com/MicroPad/Web.git
 cd Web
 cd app
 npm ci
