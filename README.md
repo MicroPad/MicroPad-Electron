@@ -40,6 +40,7 @@ You will now need to copy the contents of `Web\app\build`  into `Electron\core`.
 
 #### Build the Windows app
 ```Batchfile
+yarn build
 npx electron-builder
 ```
 
