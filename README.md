@@ -1,6 +1,9 @@
 # µPad Electron App
 This is the desktop app for [µPad](https://getmicropad.com).
 
+## Installing
+You can download binaries following the instructions [here](https://getmicropad.com/#download).
+
 ## Building
 You will need the following things to build this:  
 - Git
