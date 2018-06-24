@@ -15,7 +15,7 @@ function createWindow() {
 	let preloadPath: string = path.join(__dirname, 'preload.js');
 
 	window = new BrowserWindow({
-		width: 1000,
+		width: 1100,
 		height: 800,
 		autoHideMenuBar: true,
 		webPreferences: {
