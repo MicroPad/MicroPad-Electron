@@ -54,7 +54,20 @@
 			"category": "Office"
 		},
 		"pacman": {
-			"depends": []
+			"depends": [
+				"c-ares",
+				"gtk3",
+				"http-parser",
+				"libevent",
+				"libvpx",
+				"libxslt",
+				"libxss",
+				"minizip",
+				"nss",
+				"re2",
+				"snappy",
+				"libnotify"
+			]
 		},
 		"mac": {
 			"target": [
