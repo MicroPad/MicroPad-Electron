@@ -27,8 +27,8 @@ You will now find binaries for the app in `Electron/dist`.
 git clone --depth=1 https://github.com/MicroPad/Web.git
 cd Web
 cd app
-npm ci
-npm run build
+yarn
+yarn build
 ```
 
 #### Get the Electron code
