@@ -60,7 +60,8 @@ function initSpellcheck() {
 						const start = input.selectionStart;
 						const end = input.selectionEnd;
 
-						input.value = input.value.substring(0, start) + replacement + input.value.substring(end, input.value.length);
+						setNativeValue(input, input.value.substring(0, start) + replacement + input.value.substring(end, input.value.length));
+						input.dispatchEvent(new Event('input', { bubbles: true }));
 					}
 				};
 			});
@@ -79,6 +80,19 @@ function initSpellcheck() {
 			return [];
 		}
 	});
+}
+
+// Thanks to https://github.com/facebook/react/issues/10135#issuecomment-314441175
+function setNativeValue(element: HTMLInputElement, value: string) {
+	const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
+	const prototype = Object.getPrototypeOf(element);
+	const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
+
+	if (valueSetter && valueSetter !== prototypeValueSetter) {
+		prototypeValueSetter.call(element, value);
+	} else {
+		valueSetter.call(element, value);
+	}
 }
 
 function getWindow(): IWindow {
