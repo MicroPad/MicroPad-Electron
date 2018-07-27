@@ -3,6 +3,8 @@ dist/
 main.js
 preload.js
 
+.DS_store
+
 # Created by https://www.gitignore.io/api/node,webstorm,sublimetext
 
 ### Node ###
