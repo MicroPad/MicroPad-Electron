@@ -1,6 +1,6 @@
 {
 	"name": "micropad",
-	"version": "3.8.1-2",
+	"version": "3.8.2",
 	"description": "µPad is an open digital note taking app.",
 	"main": "main.js",
 	"scripts": {
