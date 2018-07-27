@@ -17,6 +17,7 @@ function createWindow() {
 	window = new BrowserWindow({
 		width: 1100,
 		height: 800,
+		backgroundColor: '#607d8b',
 		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: false,
@@ -79,4 +80,5 @@ function quitApp() {
 }
 
 app.setName('µPad');
+app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
 app.on('ready', createWindow);

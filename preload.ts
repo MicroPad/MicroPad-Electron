@@ -20,25 +20,22 @@ function init() {
 	}
 }
 
-function initSpellcheck() {
-	const dictAU = new Typo('en_AU', fs.readFileSync(path.join(__dirname, 'node_modules/dictionary-en-au/index.aff')).toString(), fs.readFileSync(path.join(__dirname, '/node_modules/dictionary-en-au/index.dic')).toString());
-	const dictUS = new Typo('en_US', fs.readFileSync(path.join(__dirname, '/node_modules/dictionary-en-us/index.aff')).toString(), fs.readFileSync(path.join(__dirname, '/node_modules/dictionary-en-us/index.dic')).toString());
+async function initSpellcheck(): Promise<void> {
+	const dictAU = new Typo('en_AU', await readFile(path.join(__dirname, 'node_modules/dictionary-en-au/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en-au/index.dic')));
+	const dictUS = new Typo('en_US', await readFile(path.join(__dirname, 'node_modules/dictionary-en-us/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en-us/index.dic')));
 
-	localforage.getItem('user dict')
-		.then((dict: string[]) => {
-			if (!!dict) userDict = new Set(dict);
+	let userDict: Set<string> = new Set(await localforage.getItem<string[]>('user dict'));
 
-			setTimeout(() => {
-				webFrame.setSpellCheckProvider('en-AU', false, {
-					spellCheck(word) {
-						// Don't spellcheck anything with a number in it
-						if (/\d/.test(word)) return true;
+	setTimeout(() => {
+		webFrame.setSpellCheckProvider('en-AU', false, {
+			spellCheck(word) {
+				// Don't spellcheck anything with a number in it
+				if (/\d/.test(word)) return true;
 
-						return userDict.has(word) || dictAU.check(word) || dictUS.check(word);
-					}
-				});
-			}, 1000);
+				return userDict.has(word) || dictAU.check(word) || dictUS.check(word);
+			}
 		});
+	}, 1000);
 
 	ContextMenu({
 		showInspectElement: false,
@@ -93,6 +90,15 @@ function setNativeValue(element: HTMLInputElement, value: string) {
 	} else {
 		valueSetter.call(element, value);
 	}
+}
+
+function readFile(path: string): Promise<string> {
+	return new Promise<string>(resolve => {
+		fs.readFile(path, (err, data) => {
+			if (!!err) resolve('');
+			resolve(data.toString());
+		});
+	});
 }
 
 function getWindow(): IWindow {
