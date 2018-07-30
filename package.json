@@ -51,7 +51,7 @@
 			],
 			"executableName": "micropad",
 			"category": "Office",
-			"icons": "build/icons"
+			"icon": "build/icons"
 		},
 		"pacman": {
 			"depends": [
