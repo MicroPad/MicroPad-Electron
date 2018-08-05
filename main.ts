@@ -1,4 +1,5 @@
-import { app, BrowserWindow, protocol, shell, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, protocol, shell, Menu, MenuItem, TouchBar, nativeImage } from 'electron';
+const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar;
 import * as path from 'path';
 import * as url from 'url';
 
@@ -58,6 +59,7 @@ function createWindow() {
 	]);
 
 	Menu.setApplicationMenu(appMenu);
+	initTouchbar();
 
 	window.loadURL(url.format({
 		pathname: 'index.html',
@@ -72,6 +74,22 @@ function createWindow() {
 	});
 
 	window.on('closed', () => quitApp());
+}
+
+function initTouchbar() {
+	if (process.platform !== 'darwin') return;
+
+	const touchbar = new TouchBar({
+		items: [
+			new TouchBarButton({
+				icon: nativeImage.createFromNamedImage('NSTouchBarEnterFullScreenTemplate', [-1, 0, 1]),
+				iconPosition: 'left',
+				label: 'Toggle Fullscreen'
+			})
+		]
+	});
+
+	window.setTouchBar(touchbar);
 }
 
 function quitApp() {
