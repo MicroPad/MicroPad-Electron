@@ -1,6 +1,6 @@
 {
 	"name": "micropad",
-	"version": "3.8.2",
+	"version": "3.8.3",
 	"description": "µPad is an open digital note taking app.",
 	"main": "main.js",
 	"scripts": {
@@ -25,7 +25,7 @@
 	"homepage": "https://getmicropad.com",
 	"devDependencies": {
 		"electron": "^2.0.0",
-		"electron-builder": "^20.19.2",
+		"electron-builder": "^20.26.0",
 		"typescript": "^2.8.3"
 	},
 	"dependencies": {
@@ -50,8 +50,8 @@
 				"pacman"
 			],
 			"executableName": "micropad",
-			"icon": "icon.png",
-			"category": "Office"
+			"category": "Office",
+			"icon": "build/icons"
 		},
 		"pacman": {
 			"depends": [
@@ -73,7 +73,8 @@
 			"target": [
 				"dmg"
 			],
-			"category": "public.app-category.productivity"
+			"category": "public.app-category.productivity",
+			"identity": null
 		},
 		"win": {
 			"target": [
