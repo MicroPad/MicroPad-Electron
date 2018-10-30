@@ -24,16 +24,5 @@ jobs:
     - stage: build
       os: windows
       before_script:
-        - rm -rf core
-        - rm -rf tmp
         - git clone --depth=1 https://github.com/MicroPad/Web.git tmp
-        - cd tmp/app
-        - yarn
-        - yarn build
-        - rm build/service-worker.js
-        - rm build/*.map
-        - rm build/static/*/*.map
-        - cp -r build ../../core
-        - cd ../..
-        - rm -rf tmp 
 
