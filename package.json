@@ -38,6 +38,7 @@
 	"build": {
 		"appId": "com.getmicropad.micropad",
 		"productName": "µPad",
+		"releaseType": "release",
 		"asarUnpack": [
 			"preload.js"
 		],
