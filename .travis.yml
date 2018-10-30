@@ -13,7 +13,10 @@ jobs:
   include:
     - stage: build
       os: linux
-      after_install: apt-get install -y bsdtar
+      addons:
+        apt:
+          packages:
+            - bsdtar
 
     - stage: build
       os: osx
