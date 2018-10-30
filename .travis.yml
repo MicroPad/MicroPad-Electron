@@ -21,8 +21,8 @@ jobs:
     - stage: build
       os: osx
 
-    - stage: build
-      os: windows
-      before_script:
-        - git clone --depth=1 https://github.com/MicroPad/Web.git tmp
+      #    - stage: build
+      #os: windows
+      #before_script:
+      #  - git clone --depth=1 https://github.com/MicroPad/Web.git tmp
 
