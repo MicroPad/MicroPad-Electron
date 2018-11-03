@@ -1,0 +1,25 @@
+version: 1.0.{build}
+
+build_script:
+
+- ps: >-
+    yarn install
+    git clone --depth=1 https://github.com/MicroPad/Web.git tmp
+    cd tmp/app
+    yarn
+    yarn build
+    rm build/service-worker.js
+    rm build/*.map
+    rm build/static/*/*.map
+    cp -r build ../../core
+    cd ../..
+    yarn build
+    npx electron-builder
+
+test: off
+
+artifacts:
+
+- path: dist/
+
+deploy: off
