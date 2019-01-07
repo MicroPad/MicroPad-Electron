@@ -1,18 +1,18 @@
 {
 	"name": "micropad",
-	"version": "3.12.15",
+	"version": "3.12.5",
 	"description": "µPad is an open digital note taking app.",
 	"main": "main.js",
 	"scripts": {
 		"start": "yarn build; npx electron .",
 		"build": "npx tsc --target es6 --module CommonJS main.ts preload.ts",
-		"update-core": "rm -rf core; rm -rf tmp; git clone --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; yarn; yarn build; rm build/service-worker.js; rm build/*.map; rm build/static/*/*.map; cp -r build ../../core; cd ../..; rm -rf tmp",
+		"update-core": "rm -rf core; rm -rf tmp; git clone -b v$npm_package_version --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; yarn; yarn build; rm build/service-worker.js; rm build/*.map; rm build/static/*/*.map; cp -r build ../../core; cd ../..; rm -rf tmp",
 		"pack": "yarn build; npx electron-builder --dir",
 		"dist": "yarn build; npx electron-builder"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/johnguant/Electron.git"
+		"url": "git+https://github.com/MicroPad/Electron.git"
 	},
 	"author": {
 		"name": "Nick Webster",
@@ -38,10 +38,6 @@
 	"build": {
 		"appId": "com.getmicropad.micropad",
 		"productName": "µPad",
-		"publish": {
-		  "provider": "github",
-		  "releaseType": "release"
-		},
 		"asarUnpack": [
 			"preload.js"
 		],
