@@ -79,6 +79,11 @@ function quitApp() {
 	app.quit();
 }
 
-app.setName('µPad');
-app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
-app.on('ready', createWindow);
+if (!app.requestSingleInstanceLock()) {
+	// Another instance of this app is already running
+	quitApp();
+} else {
+	app.setName('µPad');
+	app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
+	app.on('ready', createWindow);
+}

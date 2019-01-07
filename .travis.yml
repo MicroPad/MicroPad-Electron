@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+  - "10"
+install:
+  - yarn install
+before_script:
+  - yarn config set -- --emoji true
+  - yarn update-core
+script:
+  - yarn dist
+
+jobs:  
+  include:
+    - stage: build
+      os: linux
+      addons:
+        apt:
+          packages:
+            - bsdtar
+            - rpm
+
+    - stage: build
+      os: osx
+
+      #    - stage: build
+      #os: windows
+      #before_script:
+      #  - git clone --depth=1 https://github.com/MicroPad/Web.git tmp
+
