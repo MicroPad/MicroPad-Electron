@@ -13,7 +13,7 @@ build_script:
 
     appveyor DownloadFile https://github.com/MicroPad/Web/releases/download/v$($env:package_version)/micropad.tar.xz
 
-    7z e micropad.tar.xz && 7z e micropad.tar
+    7z e micropad.tar.xz; 7z e micropad.tar
 
     rm build/service-worker.js
 
