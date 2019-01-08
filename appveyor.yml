@@ -7,13 +7,13 @@ build_script:
 
     yarn install
 
-    git clone -b "v$($env:package_version)" --depth=1 https://github.com/MicroPad/Web.git tmp
+    mkdir tmp
 
-    cd tmp/app
+    cd tmp
 
-    yarn
+    appveyor DownloadFile https://github.com/MicroPad/Web/releases/download/v$($env:package_version)/micropad.tar.xz
 
-    yarn build
+    7z e micropad.tar.xz && 7z e micropad.tar
 
     rm build/service-worker.js
 
@@ -21,9 +21,9 @@ build_script:
 
     rm build/static/*/*.map
 
-    cp -r build ../../core
+    cp -r build ../core
 
-    cd ../..
+    cd ..
 
     yarn build
 

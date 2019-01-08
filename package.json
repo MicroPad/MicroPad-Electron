@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "yarn build; npx electron .",
 		"build": "npx tsc --target es6 --module CommonJS main.ts preload.ts",
-		"update-core": "rm -rf core; rm -rf tmp; git clone -b v$npm_package_version --depth=1 https://github.com/MicroPad/Web.git tmp; cd tmp/app; yarn; yarn build; rm build/service-worker.js; rm build/*.map; rm build/static/*/*.map; cp -r build ../../core; cd ../..; rm -rf tmp",
+		"update-core": "rm -rf core; rm -rf tmp; mkdir tmp; wget https://github.com/MicroPad/Web/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp; cd tmp; tar -xf micropad.tar.xz; rm build/service-worker.js; rm build/*.map; rm build/static/*/*.map; cp -r build ../core; cd ..; rm -rf tmp",
 		"pack": "yarn build; npx electron-builder --dir",
 		"dist": "yarn build; npx electron-builder"
 	},
