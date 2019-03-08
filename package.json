@@ -1,7 +1,7 @@
 {
 	"name": "micropad",
-	"version": "3.16.1",
-	"description": "µPad is an open digital note taking app.",
+	"version": "3.16.2",
+	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
 		"start": "yarn build; npx electron .",
