@@ -21,6 +21,7 @@ function createWindow() {
 		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: false,
+			contextIsolation: true,
 			preload: preloadPath
 		}
 	});
@@ -33,6 +34,7 @@ function createWindow() {
 			]
 		},
 		{
+			id: 'edit-menu',
 			label: 'Edit',
 			submenu: [
 				{ role: 'undo' },
@@ -43,7 +45,8 @@ function createWindow() {
 				{ role: 'cut' },
 				{ role: 'paste' },
 				{ role: 'selectAll' },
-				{ role: 'delete' }
+				{ role: 'delete' },
+				{ type: 'separator' }
 			]
 		},
 		{

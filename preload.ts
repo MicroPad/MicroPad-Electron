@@ -1,4 +1,4 @@
-import { webFrame } from 'electron';
+import { webFrame, remote } from 'electron';
 import * as Typo from 'typo-js';
 import * as fs from 'fs';
 import * as ContextMenu from 'electron-context-menu';
@@ -10,21 +10,27 @@ interface IWindow {
 }
 
 let userDict: Set<string> = new Set();
+let shouldSpellCheck = true;
+
 function init() {
 	getWindow().isElectron = true;
 
-	try {
-		initSpellcheck();
-	} catch (e) {
-		alert(e);
-	}
+	initSpellcheck()
+		.then(() => addSpellCheckMenuItem())
+		.catch(e => alert(e));
 }
 
 async function initSpellcheck(): Promise<void> {
+	shouldSpellCheck = (await localforage.getItem<boolean>('should spell check')) !== false;
+	if (!shouldSpellCheck) {
+		ContextMenu({ showInspectElement: false });
+		return;
+	}
+
 	const dictAU = new Typo('en_AU', await readFile(path.join(__dirname, 'node_modules/dictionary-en-au/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en-au/index.dic')));
 	const dictUS = new Typo('en_US', await readFile(path.join(__dirname, 'node_modules/dictionary-en-us/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en-us/index.dic')));
 
-	let userDict: Set<string> = new Set(await localforage.getItem<string[]>('user dict'));
+	userDict = new Set(await localforage.getItem<string[]>('user dict'));
 
 	setTimeout(() => {
 		webFrame.setSpellCheckProvider('en-AU', false, {
@@ -38,7 +44,7 @@ async function initSpellcheck(): Promise<void> {
 	}, 1000);
 
 	ContextMenu({
-		showInspectElement: false,
+		showInspectElement: true,
 		prepend: (params) => {
 			const word: string = params.misspelledWord;
 			if (!word) return [];
@@ -77,6 +83,20 @@ async function initSpellcheck(): Promise<void> {
 			return [];
 		}
 	});
+}
+
+function addSpellCheckMenuItem() {
+	const menu = remote.Menu.getApplicationMenu() as any;
+	// console.log((menu.getMenuItemById('edit-menu') as any).submenu);
+	menu.getMenuItemById('edit-menu').submenu.append(new remote.MenuItem({
+		type: 'checkbox',
+		label: 'Spell Checking',
+		checked: shouldSpellCheck,
+		click: menuItem => {
+			localforage.setItem<boolean>('should spell check', menuItem.checked);
+			alert(`When you restart MicroPad, the spell checker will be ${menuItem.checked ? 'enabled' : 'disabled'}.`);
+		}
+	}));
 }
 
 // Thanks to https://github.com/facebook/react/issues/10135#issuecomment-314441175
