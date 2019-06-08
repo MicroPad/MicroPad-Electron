@@ -23,7 +23,7 @@ function createWindow() {
 		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: false,
-			contextIsolation: true,
+			contextIsolation: false, // Despite what the Electron docs say, this now blocks access to window, so I have to disable it
 			preload: preloadPath
 		}
 	});
