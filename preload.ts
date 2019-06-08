@@ -44,8 +44,7 @@ async function initSpellcheck(): Promise<void> {
 	}, 1000);
 
 	ContextMenu({
-		showInspectElement: true,
-		prepend: (params) => {
+		prepend: (actions, params) => {
 			const word: string = params.misspelledWord;
 			if (!word) return [];
 
@@ -54,7 +53,7 @@ async function initSpellcheck(): Promise<void> {
 				...dictAU.suggest(word),
 				...dictUS.suggest(word)
 			].map(w => {
-				return {
+				return new remote.MenuItem({
 					label: w,
 					click(selected) {
 						// Replace selected text
@@ -66,18 +65,18 @@ async function initSpellcheck(): Promise<void> {
 						setNativeValue(input, input.value.substring(0, start) + replacement + input.value.substring(end, input.value.length));
 						input.dispatchEvent(new Event('input', { bubbles: true }));
 					}
-				};
+				});
 			});
 		},
-		append: (params) => {
+		append: (actions, params) => {
 			if (params.misspelledWord) return [
-				{
+				new remote.MenuItem({
 					label: 'Add to dictionary',
 					click() {
 						userDict.add(params.misspelledWord);
 						localforage.setItem('user dict', Array.from(userDict));
 					}
-				}
+				})
 			];
 
 			return [];
@@ -101,7 +100,11 @@ function addSpellCheckMenuItem() {
 
 // Thanks to https://github.com/facebook/react/issues/10135#issuecomment-314441175
 function setNativeValue(element: HTMLInputElement, value: string) {
-	const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
+	const valueProp =
+		Object.getOwnPropertyDescriptor(element, 'value')
+		|| Object.getOwnPropertyDescriptor(element['__proto__'], 'value');
+
+	const valueSetter = valueProp.set;
 	const prototype = Object.getPrototypeOf(element);
 	const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
 

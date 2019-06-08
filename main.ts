@@ -1,6 +1,8 @@
-import { app, BrowserWindow, protocol, shell, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, Menu, protocol, shell } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+
+const IS_DEV = process.argv.slice(2).includes('--is-dev');
 
 let window: BrowserWindow;
 
@@ -44,7 +46,7 @@ function createWindow() {
 				{ role: 'copy' },
 				{ role: 'cut' },
 				{ role: 'paste' },
-				{ role: 'selectAll' },
+				{ role: 'selectall' },
 				{ role: 'delete' },
 				{ type: 'separator' }
 			]
@@ -52,9 +54,9 @@ function createWindow() {
 		{
 			label: 'View',
 			submenu: [
-				{ role: 'zoomIn' },
-				{ role: 'zoomOut' },
-				{ role: 'resetZoom' }
+				{ role: 'zoomin' },
+				{ role: 'zoomout' },
+				{ role: 'resetzoom' }
 			]
 		},
 		{ role: 'windowMenu' }
@@ -75,6 +77,8 @@ function createWindow() {
 	});
 
 	window.on('closed', () => quitApp());
+
+	if (IS_DEV) window.webContents.openDevTools();
 }
 
 function quitApp() {
