@@ -1597,6 +1597,13 @@ progress-stream@^1.1.0:
     speedometer "~0.1.2"
     through2 "~0.2.3"
 
+promised-exec@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/promised-exec/-/promised-exec-1.0.1.tgz#50a11585798acb3b86fb613e103613333a30950a"
+  integrity sha1-UKEVhXmKyzuG+2E+EDYTMzowlQo=
+  dependencies:
+    q "^1.1.2"
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -1629,6 +1636,11 @@ pupa@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/pupa/-/pupa-1.0.0.tgz#9a9568a5af7e657b8462a6e9d5328743560ceff6"
   integrity sha1-mpVopa9+ZXuEYqbp1TKHQ1YM7/Y=
+
+q@^1.1.2:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+  integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
 qs@~6.5.2:
   version "6.5.2"
