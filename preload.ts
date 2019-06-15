@@ -33,12 +33,13 @@ async function initSpellcheck(): Promise<void> {
 	userDict = new Set(await localforage.getItem<string[]>('user dict'));
 
 	setTimeout(() => {
-		webFrame.setSpellCheckProvider('en-AU', false, {
-			spellCheck(word) {
-				// Don't spellcheck anything with a number in it
-				if (/\d/.test(word)) return true;
+		webFrame.setSpellCheckProvider('en-AU', {
+			spellCheck(words, callback) {
+				const misspelt = words
+					.filter(word => !/\d/.test(word)) // Don't spellcheck anything with a number in it
+					.filter(word => !(userDict.has(word) || dictAU.check(word) || dictUS.check(word)));
 
-				return userDict.has(word) || dictAU.check(word) || dictUS.check(word);
+				callback(misspelt);
 			}
 		});
 	}, 1000);
@@ -86,14 +87,15 @@ async function initSpellcheck(): Promise<void> {
 
 function addSpellCheckMenuItem() {
 	const menu = remote.Menu.getApplicationMenu() as any;
-	// console.log((menu.getMenuItemById('edit-menu') as any).submenu);
 	menu.getMenuItemById('edit-menu').submenu.append(new remote.MenuItem({
 		type: 'checkbox',
 		label: 'Spell Checking',
 		checked: shouldSpellCheck,
 		click: menuItem => {
-			localforage.setItem<boolean>('should spell check', menuItem.checked);
-			alert(`When you restart MicroPad, the spell checker will be ${menuItem.checked ? 'enabled' : 'disabled'}.`);
+			localforage.setItem<boolean>('should spell check', menuItem.checked)
+				.then(() =>
+					alert(`When you restart MicroPad, the spell checker will be ${menuItem.checked ? 'enabled' : 'disabled'}.`)
+				);
 		}
 	}));
 }

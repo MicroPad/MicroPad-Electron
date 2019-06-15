@@ -4,6 +4,8 @@ import * as url from 'url';
 
 const IS_DEV = process.argv.slice(2).includes('--is-dev');
 
+// TODO: Get running in environments with kernel.unprivileged_userns_clone not set to true
+
 let window: BrowserWindow;
 
 function createWindow() {
