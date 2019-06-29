@@ -2,6 +2,7 @@ core/
 dist/
 main.js
 preload.js
+after-pack.js
 
 .DS_store
 
