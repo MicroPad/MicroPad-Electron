@@ -1,6 +1,6 @@
 {
 	"name": "micropad",
-	"version": "3.19.1",
+	"version": "3.19.2",
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
@@ -46,7 +46,6 @@
 		"asarUnpack": [
 			"preload.js"
 		],
-		"afterPack": "./build/after-pack.js",
 		"linux": {
 			"target": [
 				"tar.gz",
