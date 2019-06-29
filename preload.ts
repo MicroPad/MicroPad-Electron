@@ -62,8 +62,10 @@ async function initSpellcheck(): Promise<void> {
 						const input: HTMLInputElement = document.activeElement as HTMLInputElement;
 						const start = input.selectionStart;
 						const end = input.selectionEnd;
+						const replacementEnd = start + replacement.length;
 
 						setNativeValue(input, input.value.substring(0, start) + replacement + input.value.substring(end, input.value.length));
+						input.setSelectionRange(replacementEnd, replacementEnd);
 						input.dispatchEvent(new Event('input', { bubbles: true }));
 					}
 				});
