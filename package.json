@@ -5,7 +5,7 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "yarn build; npx electron . --is-dev --no-sandbox",
-		"build": "npx tsc --skipLibCheck --target es2017 --module CommonJS main.ts preload.ts build/after-pack.ts",
+		"build": "npx tsc --skipLibCheck --target es2017 --module CommonJS main.ts preload.ts",
 		"update-core": "rm -rf core; rm -rf tmp; mkdir tmp; wget https://github.com/MicroPad/Web/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp; cd tmp; tar -xf micropad.tar.xz; rm build/service-worker.js; rm build/*.map; rm build/static/*/*.map; cp -r build ../core; cd ..; rm -rf tmp",
 		"pack": "yarn build; npx electron-builder --dir",
 		"dist": "yarn build; npx electron-builder"
