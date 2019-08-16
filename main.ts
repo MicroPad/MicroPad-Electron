@@ -46,7 +46,7 @@ function createWindow() {
 				{ role: 'copy' },
 				{ role: 'cut' },
 				{ role: 'paste' },
-				{ role: 'selectall' },
+				{ role: 'selectAll' },
 				{ role: 'delete' },
 				{ type: 'separator' }
 			]
@@ -54,9 +54,9 @@ function createWindow() {
 		{
 			label: 'View',
 			submenu: [
-				{ role: 'zoomin' },
-				{ role: 'zoomout' },
-				{ role: 'resetzoom' }
+				{ role: 'zoomIn' },
+				{ role: 'zoomOut' },
+				{ role: 'resetZoom' }
 			]
 		},
 		{ role: 'windowMenu' }
