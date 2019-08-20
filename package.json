@@ -64,6 +64,12 @@
 				"gtk3"
 			]
 		},
+		"snap": {
+			"publish": {
+				"provider": "github",
+				"releaseType": "release"
+			}
+		},
 		"mac": {
 			"target": [
 				"dmg"
