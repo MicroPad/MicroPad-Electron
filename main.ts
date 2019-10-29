@@ -22,6 +22,13 @@ function createWindow() {
 		backgroundColor: '#607d8b',
 		autoHideMenuBar: true,
 		webPreferences: {
+			/* This may seem bad, but I'm enabling most of the things this disables afterwards.
+			 * Electron has added a new security setting blocking file loads from within iframes, which broke
+			 * ASCIIMaths. There isn't a manual toggle for that change, so this has to be done.
+			 */
+			webSecurity: false,
+
+			allowRunningInsecureContent: false,
 			nodeIntegration: false,
 			contextIsolation: false, // Despite what the Electron docs say, this now blocks access to window, so I have to disable it
 			preload: preloadPath
@@ -90,7 +97,14 @@ if (!app.requestSingleInstanceLock()) {
 	// Another instance of this app is already running
 	quitApp();
 } else {
-	app.setName('µPad');
+	if (!!app.name) {
+		// Electron 7
+		app.name = 'µPad';
+	} else {
+		// Electron 6
+		app.setName('µPad');
+	}
+
 	app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
 	app.on('ready', createWindow);
 }
