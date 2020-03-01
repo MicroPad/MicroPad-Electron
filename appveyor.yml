@@ -1,11 +1,13 @@
 version: 1.0.{build}
 
 environment:
-    nodejs_version: "12"
+    nodejs_version: "LTS"
 
 build_script:
 
 - ps: >-
+    Install-Product node $env:nodejs_version
+
     $env:package_version = (Get-Content -Raw -Path package.json | ConvertFrom-Json).version
 
     yarn install
