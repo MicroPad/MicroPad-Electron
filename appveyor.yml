@@ -1,5 +1,8 @@
 version: 1.0.{build}
 
+environment:
+    nodejs_version: "12"
+
 build_script:
 
 - ps: >-
