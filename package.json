@@ -1,6 +1,6 @@
 {
 	"name": "micropad",
-	"version": "3.21.6",
+	"version": "3.21.9",
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
@@ -24,17 +24,17 @@
 	},
 	"homepage": "https://getmicropad.com",
 	"devDependencies": {
-		"electron": "^7.0.0",
-		"electron-builder": "^21.2.0",
+		"electron": "^8.0.2",
+		"electron-builder": "^22.3.2",
 		"promised-exec": "^1.0.1",
-		"typescript": "^3.6.4"
+		"typescript": "^3.8.3"
 	},
 	"dependencies": {
 		"dictionary-en-au": "^2.1.1",
 		"dictionary-en-us": "^2.1.1",
-		"electron-context-menu": "^0.12.1",
+		"electron-context-menu": "^0.16.0",
 		"localforage": "^1.7.3",
-		"typo-js": "^1.0.3"
+		"typo-js": "^1.1.0"
 	},
 	"build": {
 		"appId": "com.getmicropad.micropad",

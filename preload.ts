@@ -45,6 +45,7 @@ async function initSpellcheck(): Promise<void> {
 	}, 1000);
 
 	ContextMenu({
+		// @ts-ignore
 		prepend: (actions, params) => {
 			const word: string = params.misspelledWord;
 			if (!word) return [];
@@ -71,6 +72,7 @@ async function initSpellcheck(): Promise<void> {
 				});
 			});
 		},
+		// @ts-ignore
 		append: (actions, params) => {
 			if (params.misspelledWord) return [
 				new remote.MenuItem({

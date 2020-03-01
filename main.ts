@@ -31,6 +31,7 @@ function createWindow() {
 			allowRunningInsecureContent: false,
 			nodeIntegration: false,
 			contextIsolation: false, // Despite what the Electron docs say, this now blocks access to window, so I have to disable it
+			enableRemoteModule: true,
 			preload: preloadPath
 		}
 	});
@@ -105,6 +106,7 @@ if (!app.requestSingleInstanceLock()) {
 		app.setName('µPad');
 	}
 
+	app.allowRendererProcessReuse = true;
 	app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
 	app.on('ready', createWindow);
 }
