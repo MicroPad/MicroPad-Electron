@@ -25,13 +25,12 @@
 	"homepage": "https://getmicropad.com",
 	"devDependencies": {
 		"electron": "^8.0.2",
-		"electron-builder": "^22.3.2",
-		"promised-exec": "^1.0.1",
+		"electron-builder": "^22.5.1",
 		"typescript": "^3.8.3"
 	},
 	"dependencies": {
 		"dictionary-en-au": "^2.1.1",
-		"dictionary-en-us": "^2.1.1",
+		"dictionary-en": "^3.0.0",
 		"electron-context-menu": "^0.16.0",
 		"localforage": "^1.7.3",
 		"typo-js": "^1.1.0"

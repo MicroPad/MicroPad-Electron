@@ -28,7 +28,7 @@ async function initSpellcheck(): Promise<void> {
 	}
 
 	const dictAU = new Typo('en_AU', await readFile(path.join(__dirname, 'node_modules/dictionary-en-au/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en-au/index.dic')));
-	const dictUS = new Typo('en_US', await readFile(path.join(__dirname, 'node_modules/dictionary-en-us/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en-us/index.dic')));
+	const dictUS = new Typo('en_US', await readFile(path.join(__dirname, 'node_modules/dictionary-en/index.aff')), await readFile(path.join(__dirname, '/node_modules/dictionary-en/index.dic')));
 
 	userDict = new Set(await localforage.getItem<string[]>('user dict'));
 
@@ -45,6 +45,7 @@ async function initSpellcheck(): Promise<void> {
 	}, 1000);
 
 	ContextMenu({
+		showInspectElement: false,
 		// @ts-ignore
 		prepend: (actions, params) => {
 			const word: string = params.misspelledWord;
