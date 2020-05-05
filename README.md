@@ -20,31 +20,3 @@ yarn dist
 ```
 
 You will now find binaries for the app in `Electron/dist`.
-
-### Windows
-#### Build the core
-```Batchfile
-git clone --depth=1 https://github.com/MicroPad/Web.git
-cd Web
-cd app
-yarn
-yarn build
-```
-
-#### Get the Electron code
-```Batchfile
-git clone https://github.com/MicroPad/Electron
-cd Electron
-yarn
-mkdir core
-```
-
-You will now need to copy the contents of `Web\app\build`  into `Electron\core`.
-
-#### Build the Windows app
-```Batchfile
-yarn build
-npx electron-builder
-```
-
-You will now find binaries for the app in `Electron\dist`.
