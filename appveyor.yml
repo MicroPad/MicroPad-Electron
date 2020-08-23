@@ -16,7 +16,7 @@ build_script:
 
     cd tmp
 
-    appveyor DownloadFile https://github.com/MicroPad/Web/releases/download/v$($env:package_version)/micropad.tar.xz
+    appveyor DownloadFile https://github.com/MicroPad/MicroPad-Core/releases/download/v$($env:package_version)/micropad.tar.xz
 
     7z e micropad.tar.xz -y; 7z x micropad.tar -y
 
