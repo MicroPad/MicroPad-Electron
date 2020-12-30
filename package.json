@@ -1,12 +1,12 @@
 {
 	"name": "micropad",
-	"version": "3.26.0",
+	"version": "3.26.2",
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
 		"start": "yarn build; npx electron . --is-dev --no-sandbox",
 		"build": "yarn tsc --skipLibCheck --target es2017 --module CommonJS main.ts preload.ts",
-		"update-core": "rm -rf core; rm -rf tmp; mkdir tmp; wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp; cd tmp; tar -xf micropad.tar.xz; rm build/service-worker.js; rm build/*.map; rm build/static/*/*.map; cp -r build ../core; cd ..; rm -rf tmp",
+		"update-core": "rm -rf core; rm -rf tmp; mkdir tmp; wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp; cd tmp; tar -xf micropad.tar.xz; rm build/*.map; rm build/static/*/*.map; cp -r build ../core; cd ..; rm -rf tmp",
 		"pack": "yarn build; npx electron-builder --dir",
 		"dist": "yarn build; npx electron-builder"
 	},
@@ -24,8 +24,8 @@
 	},
 	"homepage": "https://getmicropad.com",
 	"devDependencies": {
-		"electron": "^10.1.3",
-		"electron-builder": "^22.8.1",
+		"electron": "^11.1.1",
+		"electron-builder": "^22.9.1",
 		"typescript": "^3.8.3"
 	},
 	"dependencies": {
