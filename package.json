@@ -73,6 +73,7 @@
 			"target": [
 				"dmg"
 			],
+			"arch": "universal",
 			"category": "public.app-category.productivity",
 			"identity": null
 		},
