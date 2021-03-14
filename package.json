@@ -70,10 +70,10 @@
 			}
 		},
 		"mac": {
-			"target": [
-				"dmg"
-			],
-			"arch": "universal",
+			"target": {
+				"target": "dmg",
+				"arch": "universal"
+			},
 			"category": "public.app-category.productivity",
 			"identity": null
 		},
