@@ -11,7 +11,7 @@ script:
 
 jobs:
   include:
-    if: (tag =~ ^v\d+\.\d+\.\d+) AND (branch = master)
+    if: (tag =~ ^v) AND (branch = master)
     - stage: build
       os: linux
       addons:
