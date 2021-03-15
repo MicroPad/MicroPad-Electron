@@ -9,8 +9,9 @@ before_script:
 script:
   - yarn dist
 
-jobs:  
+jobs:
   include:
+    if: (tag =~ ^v\d+\.\d+\.\d+) AND (branch = master)
     - stage: build
       os: linux
       addons:

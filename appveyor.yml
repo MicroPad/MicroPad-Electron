@@ -3,6 +3,11 @@ version: 1.0.{build}
 environment:
     nodejs_version: "LTS"
 
+branches:
+    only:
+        - master
+        - /v\d+\.\d+\.\d+/
+
 build_script:
 
 - ps: >-
