@@ -1,5 +1,5 @@
 language: node_js
-if: (tag =~ ^v) AND (branch = master)
+if: (tag =~ ^v.+) AND (branch = master)
 node_js:
   - "14"
 install:
