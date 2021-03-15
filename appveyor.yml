@@ -5,7 +5,6 @@ environment:
 
 branches:
     only:
-        - master
         - /v\d+\.\d+\.\d+/
 
 build_script:
