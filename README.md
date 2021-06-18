@@ -12,7 +12,7 @@ You will need the following things to build this:
 
 ### Linux/MacOS
 ```bash
-git clone https://github.com/MicroPad/Electron
+git clone https://github.com/MicroPad/MicroPad-Electron
 cd Electron
 yarn
 yarn update-core
