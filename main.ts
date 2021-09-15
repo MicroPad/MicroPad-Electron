@@ -2,9 +2,14 @@ import { app, BrowserWindow, Menu, protocol, shell } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+// https://www.electronjs.org/docs/breaking-changes#removed-remote-module
+// https://github.com/electron/remote/blob/main/docs/migration-2.md
+import { initialize, enable } from '@electron/remote/main';
+initialize();
+
 const IS_DEV = process.argv.slice(2).includes('--is-dev');
 
-let window: BrowserWindow;
+let window: BrowserWindow | null;
 
 function createWindow() {
 	protocol.interceptFileProtocol('file', (req, callback) => {
@@ -31,10 +36,12 @@ function createWindow() {
 			allowRunningInsecureContent: false,
 			nodeIntegration: false,
 			contextIsolation: false, // Despite what the Electron docs say, this now blocks access to window, so I have to disable it
-			enableRemoteModule: true,
 			preload: preloadPath
 		}
 	});
+
+	// Enable remote
+	enable(window.webContents);
 
 	const appMenu = Menu.buildFromTemplate([
 		{
@@ -84,6 +91,11 @@ function createWindow() {
 		return true;
 	});
 
+	window.webContents.setWindowOpenHandler(details => {
+		shell.openExternal(details.url);
+		return { action: 'deny' };
+	});
+
 	window.on('closed', () => quitApp());
 
 	if (IS_DEV) window.webContents.openDevTools();
@@ -106,7 +118,6 @@ if (!app.requestSingleInstanceLock()) {
 		app.setName('µPad');
 	}
 
-	app.allowRendererProcessReuse = true;
 	app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
 	app.on('ready', createWindow);
 }

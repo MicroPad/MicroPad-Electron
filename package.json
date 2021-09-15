@@ -4,11 +4,12 @@
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
-		"start": "yarn build; npx electron . --is-dev --no-sandbox",
-		"build": "yarn tsc --skipLibCheck --target es2017 --module CommonJS main.ts preload.ts",
-		"update-core": "rm -rf core; rm -rf tmp; mkdir tmp; wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp; cd tmp; tar -xf micropad.tar.xz; rm build/*.map; rm build/static/*/*.map; cp -r build ../core; cd ..; rm -rf tmp",
-		"pack": "yarn build; npx electron-builder --dir",
-		"dist": "yarn build; npx electron-builder"
+		"postinstall": "echo 'Patching @electron/remote' && cd node_modules/@electron/remote && tsc -p ./tsconfig.json || true",
+		"start": "yarn build && npx electron . --is-dev --no-sandbox",
+		"build": "yarn tsc -p tsconfig.json",
+		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/*.map && rm build/static/*/*.map && cp -r build ../core && cd .. && rm -rf tmp",
+		"pack": "yarn build && npx electron-builder --dir",
+		"dist": "yarn build && npx electron-builder"
 	},
 	"repository": {
 		"type": "git",
@@ -24,16 +25,20 @@
 	},
 	"homepage": "https://getmicropad.com",
 	"devDependencies": {
-		"electron": "^13.1.2",
-		"electron-builder": "^22.9.1",
-		"typescript": "~4.2.3"
+		"electron": "^14.0.1",
+		"electron-builder": "^22.11.7",
+		"typescript": "~4.4.3"
 	},
 	"dependencies": {
+		"@electron/remote": "git://github.com/gyteng/remote.git#e0360cbc6ad5737d43be4886dfd72e496cb7c8c6",
 		"dictionary-en": "^3.0.0",
 		"dictionary-en-au": "^2.1.1",
-		"electron-context-menu": "^0.16.0",
-		"localforage": "^1.7.3",
-		"typo-js": "^1.1.0"
+		"electron-context-menu": "git://github.com/NickGeek/electron-context-menu.git#98c88cc1f576f8f6699f5dca645bd50abf44f1f9",
+		"localforage": "^1.10.0",
+		"typo-js": "^1.2.0"
+	},
+	"resolutions": {
+		"electron-is-dev": "git://github.com/NickGeek/electron-is-dev.git#09a2c7f99667c551b39edbe4a4cb69b044bf99ce"
 	},
 	"build": {
 		"appId": "com.getmicropad.micropad",
