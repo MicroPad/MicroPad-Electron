@@ -1,10 +1,10 @@
 import { webFrame } from 'electron';
-/** @type {import("./types/typo-js")} */
+/** @type {import('./types/typo-js')} */
 import Typo from 'typo-js';
 import * as fs from 'fs';
 import ContextMenu from 'electron-context-menu';
 import * as path from 'path';
-import { BrowserWindow, dialog, Menu, MenuItem } from '@electron/remote';
+import { dialog, Menu, MenuItem } from '@electron/remote';
 import localforage from 'localforage';
 
 interface IWindow {
@@ -22,14 +22,11 @@ function init() {
 		.catch(e => console.error(e));
 }
 
-console.log(BrowserWindow.getAllWindows());
-
 async function initSpellcheck(): Promise<void> {
 	await localforage.ready();
 
 	shouldSpellCheck = (await localforage.getItem<boolean>('should spell check')) !== false;
 	if (!shouldSpellCheck) {
-		const process = { type: 'browser' };
 		ContextMenu({ showInspectElement: false });
 		return;
 	}
@@ -52,20 +49,14 @@ async function initSpellcheck(): Promise<void> {
 	}, 1000);
 
 	(() => {
-		const process = { type: 'browser' };
 		ContextMenu({
-			showInspectElement: false,
-			// @ts-ignore
-			prepend: (actions, params) => {
-				const word: string = params.misspelledWord;
-				if (!word) return [];
+			menu: (defaultActions, params) => {
+				const spellSuggestions = params.misspelledWord
+					? Array.from(new Set([...dictAU.suggest(params.misspelledWord), ...dictUS.suggest(params.misspelledWord)]))
+					: [];
 
-				// Get suggestions
-				return [
-					...dictAU.suggest(word),
-					...dictUS.suggest(word)
-				].map(w => {
-					return new MenuItem({
+				const spellSuggestionOptions = spellSuggestions.map(w => {
+					return {
 						label: w,
 						click(selected) {
 							// Replace selected text
@@ -83,22 +74,36 @@ async function initSpellcheck(): Promise<void> {
 							input.setSelectionRange(replacementEnd, replacementEnd);
 							input.dispatchEvent(new Event('input', { bubbles: true }));
 						}
-					});
+					};
 				});
-			},
-			// @ts-ignore
-			append: (actions, params) => {
-				if (params.misspelledWord) return [
-					new MenuItem({
+
+				const learnSpelling = params.misspelledWord ? [
+					defaultActions.separator(),
+					{
 						label: 'Add to dictionary',
 						click() {
 							userDict.add(params.misspelledWord);
 							localforage.setItem('user dict', Array.from(userDict));
 						}
-					})
-				];
+					}
+				] : [];
 
-				return [];
+				return [
+					...spellSuggestionOptions,
+					...learnSpelling,
+					defaultActions.separator(),
+					defaultActions.lookUpSelection({}),
+					defaultActions.separator(),
+					defaultActions.searchWithGoogle({}),
+					defaultActions.cut({}),
+					defaultActions.copy({}),
+					defaultActions.paste({}),
+					defaultActions.separator(),
+					defaultActions.saveImage({}),
+					defaultActions.saveImageAs({}),
+					...(params.linkURL.startsWith('file:///') ? [] : [defaultActions.copyLink({})]),
+					defaultActions.copyImage({}),
+				];
 			}
 		});
 	})();
@@ -112,7 +117,7 @@ function addSpellCheckMenuItem() {
 		checked: shouldSpellCheck,
 		click: async menuItem => {
 			await localforage.setItem<boolean>('should spell check', menuItem.checked);
-			await dialog.showMessageBox({ message: `When you restart MicroPad, the spell checker will be ${menuItem.checked ? 'enabled' : 'disabled'}.` });
+			await dialog.showMessageBox({ message: `When you restart µPad, the spell checker will be ${menuItem.checked ? 'enabled' : 'disabled'}.` });
 		}
 	}));
 }

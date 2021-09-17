@@ -31,18 +31,10 @@
     global-agent "^2.0.2"
     global-tunnel-ng "^2.7.1"
 
-"@electron/remote@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.0.0.tgz#32047cc088760b1c62710a69a79e23c56ababc15"
-  integrity sha512-SQLoM/8GT0ItAqSlwBvgk5om6wtfIcJnj9xc8L3Jk0wYMkUYin+ijGCGMIflWv37Gw+q4VcmxURo9NxlAyXMbw==
-
-"@electron/remote@git://github.com/gyteng/remote#e0360cbc6ad5737d43be4886dfd72e496cb7c8c6":
-  version "0.0.0-development"
-  resolved "git://github.com/gyteng/remote#e0360cbc6ad5737d43be4886dfd72e496cb7c8c6"
-
-"@electron/remote@git://github.com/gyteng/remote.git#e0360cbc6ad5737d43be4886dfd72e496cb7c8c6":
-  version "0.0.0-development"
-  resolved "git://github.com/gyteng/remote.git#e0360cbc6ad5737d43be4886dfd72e496cb7c8c6"
+"@electron/remote@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.0.1.tgz#810cbc595a21f0f94641eb2d7e8264063a3f84de"
+  integrity sha512-bGX4/yB2bPZwXm1DsxgoABgH0Cz7oFtXJgkerB8VrStYdTyvhGAULzNLRn9rVmeAuC3VUDXaXpZIlZAZHpsLIA==
 
 "@electron/universal@1.0.5":
   version "1.0.5"
@@ -724,11 +716,11 @@ electron-builder@^22.11.7:
     update-notifier "^5.1.0"
     yargs "^17.0.1"
 
-"electron-context-menu@git://github.com/NickGeek/electron-context-menu.git#98c88cc1f576f8f6699f5dca645bd50abf44f1f9":
+"electron-context-menu@git://github.com/NickGeek/electron-context-menu.git#97ee9ecd43b9fd2186b085d4a5b8732ff99fcee6":
   version "3.1.2"
-  resolved "git://github.com/NickGeek/electron-context-menu.git#98c88cc1f576f8f6699f5dca645bd50abf44f1f9"
+  resolved "git://github.com/NickGeek/electron-context-menu.git#97ee9ecd43b9fd2186b085d4a5b8732ff99fcee6"
   dependencies:
-    "@electron/remote" "git://github.com/gyteng/remote#e0360cbc6ad5737d43be4886dfd72e496cb7c8c6"
+    "@electron/remote" "^2.0.1"
     cli-truncate "^2.1.0"
     electron-dl "^3.2.1"
     electron-is-dev "^2.0.0"
@@ -742,11 +734,11 @@ electron-dl@^3.2.1:
     pupa "^2.0.1"
     unused-filename "^2.1.0"
 
-electron-is-dev@^2.0.0, "electron-is-dev@git://github.com/NickGeek/electron-is-dev.git#09a2c7f99667c551b39edbe4a4cb69b044bf99ce":
+electron-is-dev@^2.0.0, "electron-is-dev@git://github.com/NickGeek/electron-is-dev.git#a5350fb9f004106a2f0d8bd7eb27d4fcd179dada":
   version "2.0.1"
-  resolved "git://github.com/NickGeek/electron-is-dev.git#09a2c7f99667c551b39edbe4a4cb69b044bf99ce"
+  resolved "git://github.com/NickGeek/electron-is-dev.git#a5350fb9f004106a2f0d8bd7eb27d4fcd179dada"
   dependencies:
-    "@electron/remote" "^2.0.0"
+    "@electron/remote" "^2.0.1"
 
 electron-publish@22.11.7:
   version "22.11.7"

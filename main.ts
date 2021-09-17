@@ -36,9 +36,12 @@ function createWindow() {
 			allowRunningInsecureContent: false,
 			nodeIntegration: false,
 			contextIsolation: false, // Despite what the Electron docs say, this now blocks access to window, so I have to disable it
+			spellcheck: false, // We handle spellcheck with custom code in `preload.ts`
 			preload: preloadPath
 		}
 	});
+
+	window.webContents.session.setSpellCheckerEnabled(false);
 
 	// Enable remote
 	enable(window.webContents);
