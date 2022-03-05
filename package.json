@@ -1,12 +1,12 @@
 {
 	"name": "micropad",
-	"version": "3.30.5",
+	"version": "alpha1-v4.0.0",
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
 		"start": "yarn build && yarn electron . --is-dev --no-sandbox",
 		"build": "yarn tsc -p tsconfig.json",
-		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/*.map && rm build/static/*/*.map && cp -r build ../core && cd .. && rm -rf tmp",
+		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/${npm_package_version}/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/*.map && rm build/dist/*.map && cp -r build ../core && cd .. && rm -rf tmp",
 		"pack": "yarn build && yarn electron-builder --dir",
 		"dist": "yarn build && yarn electron-builder"
 	},
