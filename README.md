@@ -13,10 +13,10 @@ You will need the following things to build this:
 ### Linux/MacOS
 ```bash
 git clone https://github.com/MicroPad/MicroPad-Electron
-cd Electron
+cd MicroPad-Electron
 yarn
 yarn update-core
 yarn dist
 ```
 
-You will now find binaries for the app in `Electron/dist`.
+You will now find binaries for the app in `dist/`.
