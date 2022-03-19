@@ -29,16 +29,11 @@
 		"typescript": "~4.5.4"
 	},
 	"dependencies": {
-		"@electron/remote": "^2.0.1",
 		"dictionary-en": "^3.0.0",
 		"dictionary-en-au": "^2.1.1",
-		"electron-context-menu": "git+https://github.com/NickGeek/electron-context-menu.git#97ee9ecd43b9fd2186b085d4a5b8732ff99fcee6",
-		"electron-is-dev": "git+https://github.com/NickGeek/electron-is-dev.git#a5350fb9f004106a2f0d8bd7eb27d4fcd179dada",
+		"electron-context-menu": "^3.1.2",
 		"localforage": "^1.10.0",
 		"typo-js": "^1.2.1"
-	},
-	"resolutions": {
-		"electron-is-dev": "git+https://github.com/NickGeek/electron-is-dev.git#a5350fb9f004106a2f0d8bd7eb27d4fcd179dada"
 	},
 	"build": {
 		"appId": "com.getmicropad.micropad",

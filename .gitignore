@@ -3,6 +3,7 @@ dist/
 main.js
 preload.js
 after-pack.js
+dicts.js
 
 .DS_store
 
