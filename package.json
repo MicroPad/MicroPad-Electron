@@ -107,7 +107,8 @@
 			]
 		},
 		"nsis": {
-			"allowToChangeInstallationDirectory": true
+			"allowToChangeInstallationDirectory": true,
+			"oneClick": false
 		}
 	}
 }
