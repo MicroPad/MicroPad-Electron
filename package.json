@@ -47,8 +47,24 @@
 		],
 		"linux": {
 			"target": [
-				"tar.gz",
-				"AppImage",
+				{
+					"target": "tar.gz",
+					"arch": [
+						"x64",
+						"ia32",
+						"armv7l",
+						"arm64"
+					]
+				},
+				{
+					"target": "AppImage",
+					"arch": [
+						"x64",
+						"ia32",
+						"armv7l",
+						"arm64"
+					]
+				},
 				"snap",
 				"deb",
 				"rpm",
@@ -79,7 +95,15 @@
 		},
 		"win": {
 			"target": [
-				"nsis",
+				{
+					"target": "nsis",
+					"allowToChangeInstallationDirectory": true,
+					"arch": [
+						"x64",
+						"ia32",
+						"arm64"
+					]
+				},
 				"portable"
 			]
 		}
