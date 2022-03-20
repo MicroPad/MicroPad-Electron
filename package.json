@@ -104,10 +104,10 @@
 					]
 				},
 				"portable"
-			],
-			"nsis": {
-				"allowToChangeInstallationDirectory": true
-			}
+			]
+		},
+		"nsis": {
+			"allowToChangeInstallationDirectory": true
 		}
 	}
 }
