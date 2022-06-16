@@ -24,7 +24,7 @@
 	},
 	"homepage": "https://getmicropad.com",
 	"devDependencies": {
-		"electron": "^17.1.0",
+		"electron": "^17.2.0",
 		"electron-builder": "^23.0.2",
 		"typescript": "~4.5.4"
 	},
