@@ -1,0 +1,125 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Cache MicroPad Core
+        uses: actions/cache@v3
+        with:
+          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          path: ${{ env.GITHUB_WORKSPACE }}/core
+
+      - name: Download MicroPad Core
+        run: yarn update-core
+  
+  package-linux:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+      
+      # Caching
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/yarn.lock') }}
+          path: |
+            ${{ env.GITHUB_WORKSPACE }}/node_modules
+      - name: Cache MicroPad Core
+        uses: actions/cache@v3
+        with:
+          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          path: ${{ env.GITHUB_WORKSPACE }}/core
+
+      # Deps
+      - name: Install Node deps
+        run: yarn install --immutable
+      - name: Install build deps
+        run: apt-get update && apt-get install -y bsdtar rpm
+
+      - name: Package & Publish (if draft release exists)
+        run: yarn dist
+  
+  package-windows:
+    runs-on: windows-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+      
+      # Caching
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/yarn.lock') }}
+          path: |
+            ${{ env.GITHUB_WORKSPACE }}/node_modules
+      - name: Cache MicroPad Core
+        uses: actions/cache@v3
+        with:
+          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          path: ${{ env.GITHUB_WORKSPACE }}/core
+
+      # Deps
+      - name: Install Node deps
+        run: yarn install --immutable
+
+      - name: Package & Publish (if draft release exists)
+        run: |
+          yarn build
+          yarn electron-builder
+
+  package-macos:
+    runs-on: macos-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+      
+      # Caching
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/yarn.lock') }}
+          path: |
+            ${{ env.GITHUB_WORKSPACE }}/node_modules
+      - name: Cache MicroPad Core
+        uses: actions/cache@v3
+        with:
+          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          path: ${{ env.GITHUB_WORKSPACE }}/core
+
+      # Deps
+      - name: Install Node deps
+        run: yarn install --immutable
+
+      - name: Package & Publish (if draft release exists)
+        run: yarn dist
