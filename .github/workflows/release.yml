@@ -52,8 +52,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
-          path: |
-            ${{ env.GITHUB_WORKSPACE }}/node_modules
+          path: node_modules
       - name: Cache MicroPad Core
         id: core-cache
         uses: actions/cache@v3
@@ -68,7 +67,7 @@ jobs:
       - name: Install Node deps
         run: yarn install --immutable
       - name: Install build deps
-        run: sudo apt-get update && sudo apt-get install -y bsdtar rpm
+        run: sudo apt-get update && sudo apt-get install -y libarchive-tools rpm
 
       - name: Package & Publish (if draft release exists)
         run: yarn dist
@@ -79,9 +78,6 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Ensure core has downloaded
-        if: steps.core-cache.outputs.cache-hit != 'true'
-        run: exit 1
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -95,8 +91,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
-          path: |
-            ${{ env.GITHUB_WORKSPACE }}/node_modules
+          path: node_modules
       - name: Cache MicroPad Core
         id: core-cache
         uses: actions/cache@v3
@@ -123,9 +118,6 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Ensure core has downloaded
-        if: steps.core-cache.outputs.cache-hit != 'true'
-        run: exit 1
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -139,8 +131,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
-          path: |
-            ${{ env.GITHUB_WORKSPACE }}/node_modules
+          path: node_modules
       - name: Cache MicroPad Core
         id: core-cache
         uses: actions/cache@v3
