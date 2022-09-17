@@ -30,6 +30,10 @@ jobs:
 
       - name: Download MicroPad Core
         run: yarn update-core
+      - run: ls ${{ env.GITHUB_WORKSPACE }}/core
+      - name: Check
+        run: |
+          [[ ! -d "${GITHUB_WORKSPACE}/core" ]] && exit 1
   
   package-linux:
     needs: [prepare]
@@ -62,7 +66,7 @@ jobs:
       - name: Install Node deps
         run: yarn install --immutable
       - name: Install build deps
-        run: apt-get update && apt-get install -y bsdtar rpm
+        run: sudo apt-get update && sudo apt-get install -y bsdtar rpm
 
       - name: Package & Publish (if draft release exists)
         run: yarn dist
