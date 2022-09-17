@@ -77,6 +77,8 @@ function createWindow() {
 				label: 'View',
 				submenu: [
 					{ role: 'zoomIn' },
+					// https://github.com/MicroPad/MicroPad-Electron/issues/47
+					{ role: 'zoomIn', accelerator: 'CommandOrControl+=', visible: false },
 					{ role: 'zoomOut' },
 					{ role: 'resetZoom' }
 				]
