@@ -19,26 +19,19 @@ concurrency:
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    outputs:
-      coreKey: ${{ steps.core-download.outputs.coreKey }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: lts/*
 
-      - id: core-download
-        run: |
-          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
-          HASH=$(cat $PACKAGE_JSON_PATH | sha256sum | tr -d "\n *-")
-          echo "::set-output name=coreKey::$HASH"
+      - run: echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         id: core-cache
         with:
-          key: prepare-cache-core-${{ steps.core-download.outputs.coreKey }}
+          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
           path: core
-
       - name: Download MicroPad Core
         run: yarn update-core
       - name: Print built contents
@@ -140,21 +133,24 @@ jobs:
         with:
           key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
           path: node_modules
-      - name: Cache MicroPad Core
-        id: core-cache
-        uses: actions/cache@v3
-        with:
-          key: prepare-cache-core-${{ needs.prepare.outputs.coreKey }}
-          path: core
-      - name: Ensure core has downloaded
-        if: steps.core-cache.outputs.cache-hit != 'true'
-        run: exit 1
 
       # Deps
       - name: Install Node deps
         run: yarn install --immutable
 
+      - name: Download core
+        run: |
+          mkdir tmp
+          yarn windows:download-core
+          C:\Program Files\7-Zip\7z.exe e micropad.tar.xz -y; 7z x micropad.tar -y -o tmp
+          cd tmp
+          rm build/dist/*.map
+          cp -r build ../core
+          cd ..
+
       - name: Package & Publish (if draft release exists)
         run: |
           yarn build
           yarn electron-builder
+
+

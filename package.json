@@ -8,7 +8,8 @@
 		"build": "yarn tsc -p tsconfig.json",
 		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/dist/*.map && cp -r build ../core && cd .. && rm -rf tmp",
 		"pack": "yarn build && yarn electron-builder --dir",
-		"dist": "yarn build && yarn electron-builder"
+		"dist": "yarn build && yarn electron-builder",
+		"windows:download-core": "Invoke-WebRequest -Uri \"https://github.com/MicroPad/MicroPad-Core/releases/download/v$env:npm_package_version/micropad.tar.xz\" -OutFile \"micropad.tar.xz\""
 	},
 	"repository": {
 		"type": "git",
