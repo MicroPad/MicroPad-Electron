@@ -25,7 +25,7 @@ jobs:
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
+          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       - name: Download MicroPad Core
@@ -48,13 +48,13 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(${{ env.YARN_LOCK_PATH }}) }}
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
+          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
@@ -83,13 +83,13 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(${{ env.YARN_LOCK_PATH }}) }}
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
+          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
@@ -118,13 +118,13 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(${{ env.YARN_LOCK_PATH }}) }}
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
+          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
