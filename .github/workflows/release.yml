@@ -24,10 +24,10 @@ jobs:
       - run: echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
       - name: Cache MicroPad Core
         uses: actions/cache@v3
+        id: core-cache
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
-          path: ${{ env.GITHUB_WORKSPACE }}/core
-
+          path: core
       - name: Download MicroPad Core
         run: yarn update-core
       - name: Print built contents
@@ -39,6 +39,9 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -75,6 +78,9 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -105,12 +111,16 @@ jobs:
           yarn build
           yarn electron-builder
 
+
   package-macos:
     needs: [prepare]
     runs-on: macos-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
