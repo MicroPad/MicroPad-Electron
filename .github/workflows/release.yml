@@ -133,19 +133,19 @@ jobs:
           key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
           path: node_modules
 
-      # Deps
-      - name: Install Node deps
-        run: yarn install --immutable
-
       - name: Download core
         run: |
           mkdir tmp
           yarn windows:download-core
-          &'C:\Program Files\7-Zip\7z.exe' e micropad.tar.xz -y; 7z x micropad.tar -y -o tmp
+          Move-Item -Path micropad.tar.xz -Destination tmp
           cd tmp
+          &'C:\Program Files\7-Zip\7z.exe' e micropad.tar.xz -y; 7z x micropad.tar -y
           rm build/dist/*.map
           cp -r build ../core
           cd ..
+
+      - name: Install Node deps
+        run: yarn install --immutable
 
       - name: Package & Publish (if draft release exists)
         run: |
