@@ -55,6 +55,7 @@ jobs:
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
+        id: core-cache
         uses: actions/cache@v3
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
@@ -97,6 +98,7 @@ jobs:
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
+        id: core-cache
         uses: actions/cache@v3
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
@@ -140,6 +142,7 @@ jobs:
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
+        id: core-cache
         uses: actions/cache@v3
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
