@@ -134,6 +134,7 @@ jobs:
           path: node_modules
 
       - name: Download core
+        shell: pwsh
         run: |
           mkdir tmp
           yarn windows:download-core
