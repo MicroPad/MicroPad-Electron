@@ -127,7 +127,7 @@ jobs:
       - run: |
           echo "YARN_LOCK_PATH=$env:GITHUB_WORKSPACE\yarn.lock" >> $env:GITHUB_ENV
           echo "PACKAGE_JSON_PATH=$env:GITHUB_WORKSPACE\package.json" >> $env:GITHUB_ENV
-          echo "VERSION=$(npm run --silent version)" >> $env:GITHUB_ENV
+          echo "DOWNLOAD_URL=https://github.com/MicroPad/MicroPad-Core/releases/download/v$(npm run --silent version)/micropad.tar.xz" >> $env:GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -137,13 +137,12 @@ jobs:
       - name: Download core
         uses: suisei-cn/actions-download-file@v1.0.1
         with:
-          url: "https://github.com/MicroPad/MicroPad-Core/releases/download/v$env:VERSION/micropad.tar.xz"
+          url: ${{ env.DOWNLOAD_URL }}
 
       - name: Download core
         shell: pwsh
         run: |
           mkdir tmp
-          yarn windows:download-core
           Move-Item -Path micropad.tar.xz -Destination tmp
           cd tmp
           &'C:\Program Files\7-Zip\7z.exe' e micropad.tar.xz -y; 7z x micropad.tar -y
