@@ -1,5 +1,5 @@
 import { ipcRenderer, webFrame } from 'electron';
-import * as fs from 'fs';
+import * as fs from 'node:fs/promises';
 import localforage from 'localforage';
 import { getDicts } from './dicts';
 const { contextBridge } = require('electron')
@@ -27,7 +27,7 @@ async function initSpellcheck(): Promise<void> {
 		await localforage.setItem('user dict', Array.from(userDict));
 	});
 
-	ipcRenderer.send('initalShouldSpellCheck', shouldSpellCheck );
+	ipcRenderer.send('initalShouldSpellCheck', shouldSpellCheck);
 
 	if(!shouldSpellCheck){
 		return;
@@ -46,15 +46,6 @@ async function initSpellcheck(): Promise<void> {
 			}
 		});
 	}, 1000);
-}
-
-function readFile(path: string): Promise<string> {
-	return new Promise<string>(resolve => {
-		fs.readFile(path, (err, data) => {
-			if (!!err) resolve('');
-			resolve(data.toString());
-		});
-	});
 }
 
 init();

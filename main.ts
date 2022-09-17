@@ -1,6 +1,5 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, protocol, shell } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu, protocol, shell } from 'electron';
 import * as path from 'path';
-import * as url from 'url';
 import ContextMenu from 'electron-context-menu';
 import { getDicts } from './dicts';
 
@@ -34,6 +33,7 @@ function createWindow() {
 			nodeIntegration: false,
 			contextIsolation: true,
 			spellcheck: false, // We handle spellcheck with custom code in `preload.ts`
+			sandbox: false,
 			preload: preloadPath
 		}
 	});
@@ -89,17 +89,8 @@ function createWindow() {
 			.catch(e => console.error(e));
 	});
 
-	window.loadURL(url.format({
-		pathname: 'index.html',
-		protocol: 'file:',
-		slashes: true
-	}));
 
-	window.webContents.on('new-window', (event, url) => {
-		event.preventDefault();
-		shell.openExternal(url);
-		return true;
-	});
+	window.loadURL(new URL('index.html', 'file:').toString());
 
 	window.webContents.setWindowOpenHandler(details => {
 		shell.openExternal(details.url);
@@ -175,14 +166,7 @@ if (!app.requestSingleInstanceLock()) {
 	// Another instance of this app is already running
 	quitApp();
 } else {
-	if (!!app.name) {
-		// Electron 7
-		app.name = 'µPad';
-	} else {
-		// Electron 6
-		app.setName('µPad');
-	}
-
+	app.name = 'µPad';
 	app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
 	app.on('ready', createWindow);
 }
