@@ -50,7 +50,7 @@ jobs:
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
@@ -82,7 +82,7 @@ jobs:
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
@@ -114,7 +114,7 @@ jobs:
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles("${{ env.GITHUB_WORKSPACE }}/package.json") }}
+          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
