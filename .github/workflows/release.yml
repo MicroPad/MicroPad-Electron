@@ -114,7 +114,7 @@ jobs:
         run: yarn dist
 
   package-windows:
-    needs: [prepare]
+    needs: []
     runs-on: windows-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
