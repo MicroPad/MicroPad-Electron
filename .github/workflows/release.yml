@@ -75,10 +75,10 @@ jobs:
 
       - name: Package & Publish (if draft release exists)
         run: yarn dist
-  
-  package-windows:
+
+  package-macos:
     needs: [prepare]
-    runs-on: windows-latest
+    runs-on: macos-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -89,8 +89,45 @@ jobs:
       
       # Caching
       - run: |
-          echo "YARN_LOCK_PATH=$env:GITHUB_WORKSPACE/yarn.lock" >> $env:GITHUB_ENV
-          echo "PACKAGE_JSON_PATH=$env:GITHUB_WORKSPACE/package.json" >> $env:GITHUB_ENV
+          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}/yarn.lock" >> $GITHUB_ENV
+          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
+          path: node_modules
+      - name: Cache MicroPad Core
+        id: core-cache
+        uses: actions/cache@v3
+        with:
+          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
+          path: core
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
+
+      # Deps
+      - name: Install Node deps
+        run: yarn install --immutable
+
+      - name: Package & Publish (if draft release exists)
+        run: yarn dist
+
+  package-windows:
+    needs: [prepare]
+    runs-on: windows-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      # Caching
+      - run: |
+          echo "YARN_LOCK_PATH=$env:GITHUB_WORKSPACE\yarn.lock" >> $env:GITHUB_ENV
+          echo "PACKAGE_JSON_PATH=$env:GITHUB_WORKSPACE\package.json" >> $env:GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -114,41 +151,3 @@ jobs:
         run: |
           yarn build
           yarn electron-builder
-
-
-  package-macos:
-    needs: [prepare]
-    runs-on: macos-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-      
-      # Caching
-      - run: |
-          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}\yarn.lock" >> $GITHUB_ENV
-          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}\package.json" >> $GITHUB_ENV
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(env.YARN_LOCK_PATH) }}
-          path: node_modules
-      - name: Cache MicroPad Core
-        id: core-cache
-        uses: actions/cache@v3
-        with:
-          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
-          path: core
-      - name: Ensure core has downloaded
-        if: steps.core-cache.outputs.cache-hit != 'true'
-        run: exit 1
-
-      # Deps
-      - name: Install Node deps
-        run: yarn install --immutable
-
-      - name: Package & Publish (if draft release exists)
-        run: yarn dist
