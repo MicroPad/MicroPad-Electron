@@ -141,7 +141,7 @@ jobs:
         run: |
           mkdir tmp
           yarn windows:download-core
-          "C:\Program Files\7-Zip\7z.exe" e micropad.tar.xz -y; 7z x micropad.tar -y -o tmp
+          &'C:\Program Files\7-Zip\7z.exe' e micropad.tar.xz -y; 7z x micropad.tar -y -o tmp
           cd tmp
           rm build/dist/*.map
           cp -r build ../core
