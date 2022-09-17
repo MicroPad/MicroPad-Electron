@@ -45,7 +45,7 @@ function createWindow() {
 
 	window.webContents.session.setSpellCheckerEnabled(false);
 
-	ipcMain.on('initalShouldSpellCheck', (_event, shouldSpellCheck) => {
+	ipcMain.on('initialShouldSpellCheck', (_event, shouldSpellCheck) => {
 		const appMenu = Menu.buildFromTemplate([
 			{
 				label: (process.platform === 'darwin') ? app.getName() : 'File',

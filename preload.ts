@@ -27,7 +27,7 @@ async function initSpellcheck(): Promise<void> {
 		await localforage.setItem('user dict', Array.from(userDict));
 	});
 
-	ipcRenderer.send('initalShouldSpellCheck', shouldSpellCheck);
+	ipcRenderer.send('initialShouldSpellCheck', shouldSpellCheck);
 
 	if(!shouldSpellCheck){
 		return;
