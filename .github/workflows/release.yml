@@ -21,10 +21,11 @@ jobs:
         with:
           node-version: lts/*
 
+      - run: echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
+          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       - name: Download MicroPad Core
@@ -41,16 +42,19 @@ jobs:
           node-version: lts/*
       
       # Caching
+      - run: |
+          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}/yarn.lock" >> $GITHUB_ENV
+          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/yarn.lock') }}
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(${{ env.YARN_LOCK_PATH }}) }}
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
+          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
@@ -73,16 +77,19 @@ jobs:
           node-version: lts/*
       
       # Caching
+      - run: |
+          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}/yarn.lock" >> $GITHUB_ENV
+          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/yarn.lock') }}
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(${{ env.YARN_LOCK_PATH }}) }}
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
+          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
@@ -105,16 +112,19 @@ jobs:
           node-version: lts/*
       
       # Caching
+      - run: |
+          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}/yarn.lock" >> $GITHUB_ENV
+          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/yarn.lock') }}
+          key: ${{ runner.os }}-prepare-cache-node-${{ hashFiles(${{ env.YARN_LOCK_PATH }}) }}
           path: |
             ${{ env.GITHUB_WORKSPACE }}/node_modules
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles('${{ env.GITHUB_WORKSPACE }}/package.json') }}
+          key: prepare-cache-core-${{ hashFiles(${{ env.PACKAGE_JSON_PATH }}) }}
           path: ${{ env.GITHUB_WORKSPACE }}/core
 
       # Deps
