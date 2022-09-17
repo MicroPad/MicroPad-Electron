@@ -85,8 +85,8 @@ jobs:
       
       # Caching
       - run: |
-          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}/yarn.lock" >> $GITHUB_ENV
-          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
+          echo "YARN_LOCK_PATH=${GITHUB_WORKSPACE}/yarn.lock" >> $env:GITHUB_ENV
+          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $env:GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
