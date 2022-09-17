@@ -19,19 +19,26 @@ concurrency:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    outputs:
+      coreKey: ${{ steps.core-download.outputs.coreKey }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: lts/*
 
-      - run: echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
+      - id: core-download
+        run: |
+          echo "PACKAGE_JSON_PATH=${GITHUB_WORKSPACE}/package.json" >> $GITHUB_ENV
+          HASH=$(cat $PACKAGE_JSON_PATH | sha256sum | tr -d "\n *-")
+          echo "::set-output name=coreKey::$HASH"
       - name: Cache MicroPad Core
         uses: actions/cache@v3
         id: core-cache
         with:
-          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
+          key: prepare-cache-core-${{ steps.core-download.outputs.coreKey }}
           path: core
+
       - name: Download MicroPad Core
         run: yarn update-core
       - name: Print built contents
@@ -137,7 +144,7 @@ jobs:
         id: core-cache
         uses: actions/cache@v3
         with:
-          key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
+          key: prepare-cache-core-${{ needs.prepare.outputs.coreKey }}
           path: core
       - name: Ensure core has downloaded
         if: steps.core-cache.outputs.cache-hit != 'true'
