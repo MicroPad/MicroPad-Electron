@@ -32,6 +32,7 @@ jobs:
         run: yarn update-core
   
   package-linux:
+    needs: [prepare]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -67,6 +68,7 @@ jobs:
         run: yarn dist
   
   package-windows:
+    needs: [prepare]
     runs-on: windows-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -102,6 +104,7 @@ jobs:
           yarn electron-builder
 
   package-macos:
+    needs: [prepare]
     runs-on: macos-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
