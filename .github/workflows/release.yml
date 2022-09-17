@@ -127,7 +127,7 @@ jobs:
       - run: |
           echo "YARN_LOCK_PATH=$env:GITHUB_WORKSPACE\yarn.lock" >> $env:GITHUB_ENV
           echo "PACKAGE_JSON_PATH=$env:GITHUB_WORKSPACE\package.json" >> $env:GITHUB_ENV
-          echo "DOWNLOAD_URL=https://github.com/MicroPad/MicroPad-Core/releases/download/v$(npm run --silent version)/micropad.tar.xz" >> $env:GITHUB_ENV
+          echo "DOWNLOAD_URL=https://github.com/MicroPad/MicroPad-Core/releases/download/v$(npm run --silent windows:version)/micropad.tar.xz" >> $env:GITHUB_ENV
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
