@@ -39,9 +39,6 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Ensure core has downloaded
-        if: steps.core-cache.outputs.cache-hit != 'true'
-        run: exit 1
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -61,7 +58,10 @@ jobs:
         uses: actions/cache@v3
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
-          path: ${{ env.GITHUB_WORKSPACE }}/core
+          path: core
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
 
       # Deps
       - name: Install Node deps
@@ -100,7 +100,10 @@ jobs:
         uses: actions/cache@v3
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
-          path: ${{ env.GITHUB_WORKSPACE }}/core
+          path: core
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
 
       # Deps
       - name: Install Node deps
@@ -140,7 +143,10 @@ jobs:
         uses: actions/cache@v3
         with:
           key: prepare-cache-core-${{ hashFiles(env.PACKAGE_JSON_PATH) }}
-          path: ${{ env.GITHUB_WORKSPACE }}/core
+          path: core
+      - name: Ensure core has downloaded
+        if: steps.core-cache.outputs.cache-hit != 'true'
+        run: exit 1
 
       # Deps
       - name: Install Node deps
