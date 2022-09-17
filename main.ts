@@ -1,8 +1,8 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, protocol, shell } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu, protocol, shell } from 'electron';
 import * as path from 'path';
-import * as url from 'url';
 import ContextMenu from 'electron-context-menu';
 import { getDicts } from './dicts';
+import windowStateKeeper from 'electron-window-state';
 
 const IS_DEV = process.argv.slice(2).includes('--is-dev');
 
@@ -10,17 +10,20 @@ let window: BrowserWindow | null;
 
 function createWindow() {
 	protocol.interceptFileProtocol('file', (req, callback) => {
-		let url = req.url.substr(5);
+		let url = req.url.substring(5);
 		url = path.normalize(path.join(__dirname, 'core', url)).split('?')[0];
-
 		callback(url);
 	});
 
-	let preloadPath: string = path.join(__dirname, 'preload.js');
+	const windowState = windowStateKeeper({
+		defaultWidth: 1100,
+		defaultHeight: 800
+	})
 
+	const preloadPath: string = path.join(__dirname, 'preload.js');
 	window = new BrowserWindow({
-		width: 1100,
-		height: 800,
+		width: windowState.width,
+		height: windowState.height,
 		backgroundColor: '#607d8b',
 		autoHideMenuBar: true,
 		webPreferences: {
@@ -34,13 +37,15 @@ function createWindow() {
 			nodeIntegration: false,
 			contextIsolation: true,
 			spellcheck: false, // We handle spellcheck with custom code in `preload.ts`
+			sandbox: false,
 			preload: preloadPath
 		}
 	});
+	windowState.manage(window);
 
 	window.webContents.session.setSpellCheckerEnabled(false);
 
-	ipcMain.on('initalShouldSpellCheck', (_event, shouldSpellCheck) => {
+	ipcMain.on('initialShouldSpellCheck', (_event, shouldSpellCheck) => {
 		const appMenu = Menu.buildFromTemplate([
 			{
 				label: (process.platform === 'darwin') ? app.getName() : 'File',
@@ -77,6 +82,8 @@ function createWindow() {
 				label: 'View',
 				submenu: [
 					{ role: 'zoomIn' },
+					// https://github.com/MicroPad/MicroPad-Electron/issues/47
+					{ role: 'zoomIn', accelerator: 'CommandOrControl+=', visible: false },
 					{ role: 'zoomOut' },
 					{ role: 'resetZoom' }
 				]
@@ -89,17 +96,8 @@ function createWindow() {
 			.catch(e => console.error(e));
 	});
 
-	window.loadURL(url.format({
-		pathname: 'index.html',
-		protocol: 'file:',
-		slashes: true
-	}));
 
-	window.webContents.on('new-window', (event, url) => {
-		event.preventDefault();
-		shell.openExternal(url);
-		return true;
-	});
+	window.loadURL(new URL('index.html', 'file:').toString());
 
 	window.webContents.setWindowOpenHandler(details => {
 		shell.openExternal(details.url);
@@ -175,14 +173,7 @@ if (!app.requestSingleInstanceLock()) {
 	// Another instance of this app is already running
 	quitApp();
 } else {
-	if (!!app.name) {
-		// Electron 7
-		app.name = 'µPad';
-	} else {
-		// Electron 6
-		app.setName('µPad');
-	}
-
+	app.name = 'µPad';
 	app.disableHardwareAcceleration(); // This should fix https://github.com/MicroPad/Electron/issues/2
 	app.on('ready', createWindow);
 }
