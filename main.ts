@@ -2,6 +2,7 @@ import { app, BrowserWindow, dialog, ipcMain, Menu, protocol, shell } from 'elec
 import * as path from 'path';
 import ContextMenu from 'electron-context-menu';
 import { getDicts } from './dicts';
+import windowStateKeeper from 'electron-window-state';
 
 const IS_DEV = process.argv.slice(2).includes('--is-dev');
 
@@ -9,17 +10,20 @@ let window: BrowserWindow | null;
 
 function createWindow() {
 	protocol.interceptFileProtocol('file', (req, callback) => {
-		let url = req.url.substr(5);
+		let url = req.url.substring(5);
 		url = path.normalize(path.join(__dirname, 'core', url)).split('?')[0];
-
 		callback(url);
 	});
 
-	let preloadPath: string = path.join(__dirname, 'preload.js');
+	const windowState = windowStateKeeper({
+		defaultWidth: 1100,
+		defaultHeight: 800
+	})
 
+	const preloadPath: string = path.join(__dirname, 'preload.js');
 	window = new BrowserWindow({
-		width: 1100,
-		height: 800,
+		width: windowState.width,
+		height: windowState.height,
 		backgroundColor: '#607d8b',
 		autoHideMenuBar: true,
 		webPreferences: {
@@ -37,6 +41,7 @@ function createWindow() {
 			preload: preloadPath
 		}
 	});
+	windowState.manage(window);
 
 	window.webContents.session.setSpellCheckerEnabled(false);
 

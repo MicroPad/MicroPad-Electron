@@ -33,6 +33,7 @@
 		"dictionary-en": "^3.0.0",
 		"dictionary-en-au": "^2.1.1",
 		"electron-context-menu": "^3.1.2",
+		"electron-window-state": "^5.0.3",
 		"localforage": "^1.10.0",
 		"typo-js": "^1.2.1"
 	},
