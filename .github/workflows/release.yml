@@ -30,10 +30,10 @@ jobs:
 
       - name: Download MicroPad Core
         run: yarn update-core
-      - run: ls $GITHUB_WORKSPACE
+      - run: ls $GITHUB_WORKSPACE/core
       - name: Check
         run: |
-          [[ ! -d "${GITHUB_WORKSPACE}/core" ]] && exit 1
+          [[ ! -d "$GITHUB_WORKSPACE/core" ]] && exit 1
   
   package-linux:
     needs: [prepare]
