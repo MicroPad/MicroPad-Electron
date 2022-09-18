@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    tags:
+      - v*
+      # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  update-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get deps
+        run: |
+          # Latest version of https://mustache.github.io/ for bash as of 18/9/22
+          curl -sSL https://raw.githubusercontent.com/tests-always-included/mo/67ba8bae2cd5dd5a820568bd233ff7ee10406cb7/mo -o mo
+          chmod +x ./mo
+      - name: Generate HTML
+        run: |
+          VERSION=$(npm pkg get version | sed 's/"//g')
+          cat www/index.html | ./mo > www/index.html
+          echo www/index.html
+      - name: Upload HTML
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_DEST: ${{ secrets.DEPLOY_DEST }}
+        run: |
+          echo "$DEPLOY_KEY" > key
+          scp -i ./key -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
+          rm key
