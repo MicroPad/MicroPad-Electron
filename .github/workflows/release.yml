@@ -137,7 +137,7 @@ jobs:
         with:
           url: ${{ env.DOWNLOAD_URL }}
 
-      - name: Download core
+      - name: Extract core
         shell: pwsh
         run: |
           mkdir tmp
