@@ -39,4 +39,3 @@ jobs:
           eval `ssh-agent -s`
           echo "$DEPLOY_KEY" | ssh-add -
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P $DEPLOY_PORT index.html "$DEPLOY_DEST"
-          rm key
