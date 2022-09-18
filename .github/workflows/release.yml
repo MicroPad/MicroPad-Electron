@@ -166,5 +166,5 @@ jobs:
       - run: |
           sudo snap install snapcraft --classic
           echo $SNAPCRAFT_TOKEN > credentials
-          snapscraft login --with credentials
+          snapcraft login --with credentials
           snapcraft push dist/*.snap --release candidate
