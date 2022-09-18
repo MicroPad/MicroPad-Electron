@@ -165,5 +165,4 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           sudo snap install snapcraft --classic
-          VERSION=$(npm pkg get version | sed 's/"//g')
-          snapcraft push "dist/micropad_$VERSION_amd64.snap" --release candidate
+          snapcraft push "dist/micropad_$(npm pkg get version | sed 's/"//g')_amd64.snap" --release candidate
