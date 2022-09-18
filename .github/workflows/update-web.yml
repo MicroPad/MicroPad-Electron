@@ -30,7 +30,7 @@ jobs:
         run: |
           VERSION=$(npm pkg get version | sed 's/"//g')
           cat www/index.html | ./mo > www/index.html
-          echo www/index.html
+          cat www/index.html
       - name: Upload HTML
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
@@ -38,5 +38,5 @@ jobs:
           DEPLOY_DEST: ${{ secrets.DEPLOY_DEST }}
         run: |
           echo "$DEPLOY_KEY" > key
-          scp -i ./key -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./key -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
           rm key
