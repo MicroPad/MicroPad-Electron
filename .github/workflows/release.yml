@@ -160,11 +160,10 @@ jobs:
     needs: [package-linux]
     runs-on: ubuntu-latest
     env:
-      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
       - uses: actions/checkout@v3
       - run: |
           sudo snap install snapcraft --classic
-          echo $SNAPCRAFT_TOKEN > credentials
-          snapcraft login --with credentials
-          snapcraft push dist/*.snap --release candidate
+          VERSION=$(npm pkg get version | sed 's/"//g')
+          snapcraft push "dist/micropad_$VERSION_amd64.snap" --release candidate
