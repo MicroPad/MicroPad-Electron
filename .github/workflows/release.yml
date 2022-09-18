@@ -162,6 +162,7 @@ jobs:
     env:
       SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
+      - uses: actions/checkout@v3
       - run: |
           sudo snap install snapcraft --classic
           echo $SNAPCRAFT_TOKEN > credentials

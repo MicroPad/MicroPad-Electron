@@ -20,9 +20,9 @@ jobs:
   update-website:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Get deps
         run: |
-          cd $GITHUB_WORKSPACE
           # Latest version of https://mustache.github.io/ for bash as of 18/9/22
           curl -sSL https://raw.githubusercontent.com/tests-always-included/mo/67ba8bae2cd5dd5a820568bd233ff7ee10406cb7/mo -o mo
           chmod +x ./mo
