@@ -28,8 +28,8 @@ jobs:
           chmod +x ./mo
       - name: Generate HTML
         run: |
-          VERSION=$(npm pkg get version | sed 's/"//g')
-          cat www/index.html | ./mo > www/index.html
+          cat www/index.html | VERSION=$(npm pkg get version | sed 's/"//g') ./mo > index.html
+          cat index.html
       - name: Upload HTML
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
@@ -38,5 +38,5 @@ jobs:
         run: |
           eval `ssh-agent -s`
           echo "$DEPLOY_KEY" | ssh-add -
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P $DEPLOY_PORT index.html "$DEPLOY_DEST"
           rm key
