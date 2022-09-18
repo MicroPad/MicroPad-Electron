@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+	<title>μPad | Take and organise notes for free</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="Description" content="MicroPad is a free non-linear note taking app that allows for easy organisation of all of your notes and notebooks." />
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-8931238-16"></script>
+	<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-8931238-16");</script>
+	
+	<script>!function(e,t,n,c,o,a,f){e.fbq||(o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),o.push=o,o.loaded=!0,o.version="2.0",o.queue=[],(a=t.createElement(n)).async=!0,a.src="https://connect.facebook.net/en_US/fbevents.js",(f=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,f))}(window,document,"script"),fbq("init","461370244416261"),fbq("track","PageView");</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=461370244416261&ev=PageView&noscript=1"/></noscript>
+
+	<link preload href="style.css" rel="stylesheet">
+	<link preload href="https://fonts.googleapis.com/css?family=Roboto+Slab|Lato" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<h1>μPad</h1>
+		<aside>A powerful note-taking app that helps you organise + take notes without restrictions.</aside>
+		<span><a href="https://web.getmicropad.com">Open in Browser</a> | <a href="#download">Download</a> | <a href="/sync">μSync</a></span>
+		<p class="small"><a target="_blank" rel="noreferrer nofollow" href="https://github.com/MicroPad">Source Code</a> | <a href="https://github.com/MicroPad/MicroPad-Core/discussions">Discussions</a></p>
+
+		<footer class="small">
+			<a href="contact.html">Contact</a> | <a href="policy.html#terms">μSync Terms and Conditions</a> | <a href="policy.html#privacy">μSync Privacy Policy</a><br />
+		</footer>
+	</header>
+
+	<div id="container">
+		<div id="freedoms" class="promo">
+			<h1>Why?</h1>
+			<p>
+				Taking notes is a fundamentally important task, especially for students. However, most powerful notepad/notebook apps lock you into their platform.<br><br>
+
+				μPad (MicroPad) is <a target="_blank" rel="noreferrer" href="https://opensource.com/resources/what-open-source">open source</a> and free. It uses a simple file format (which has an <a href="https://github.com/MicroPad/Notebook-Library">open-source library</a>) and can export to markdown-formatted plain text.
+			</p>
+		</div>
+
+		<div id="screenshots">
+			<h1>Screenshots</h1>
+			<div class="slideshow">
+				<img style="animation-delay: 20s;" loading="lazy" src="img/scrot/main-page.png" alt="Main UI" width="1339" height="996" />
+				<img style="animation-delay: 15s;" loading="lazy" src="img/scrot/politics-note.png" alt="Non-linear note" width="1608" height="1080" />
+				<img style="animation-delay: 10s;" loading="lazy" src="img/scrot/solarized.png" alt="Solarized theme" width="1160" height="883" />
+				<img style="animation-delay: 5s;" loading="lazy" src="img/scrot/midnight.png" alt="Midnight theme" width="1160" height="883" />
+				<img style="animation-delay: 0s;" loading="lazy" src="img/scrot/drawings.png" alt="Note with drawings" width="1922" height="1169" />
+			</div>
+			<a target="_blank" href="img/scrot/drawings.png">Note with drawings</a> | <a target="_blank" href="img/scrot/midnight.png">Midnight theme</a> | <a target="_blank" href="img/scrot/solarized.png">Solarized theme</a> | <a target="_blank" href="img/scrot/politics-note.png">Non-linear note</a> | <a target="_blank" href="img/scrot/main-page.png">Main UI</a><br />
+			<a target="_blank" rel="noreferrer" href="https://www.youtube.com/watch?v=SrDJ4Ci6uZU">Demo Video</a>
+		</div>
+
+		<div id="download">
+			<h1>That sounds great! How do I start?</h1>
+			<ul>
+				<li>
+					<a href="https://web.getmicropad.com">Use μPad in your web browser</a>
+				</li>
+				<li>
+					Windows
+					<ul>
+						<li><a target="_blank" download="" href="https://github.com/MicroPad/MicroPad-Electron/releases/download/v{{VERSION}}/micropad-setup-{{VERSION}}.exe">Installer</a></li>
+						<li><a target="_blank" download="" href="https://github.com/MicroPad/MicroPad-Electron/releases/download/v{{VERSION}}/micropad-{{VERSION}}.exe">Portable</a></li>
+						<li><em>Note: You may get a warning from Windows, this is <a target="nofollow noreferrer" href="https://twitter.com/NeoTheThird/status/1014580519533711361">a common warning with open source software on Windows</a>, the install file is safe.</em></li>
+					</ul>
+				</li>
+				<li>
+					<a target="_blank" download="" href="https://github.com/MicroPad/MicroPad-Electron/releases/download/v{{VERSION}}/micropad-{{VERSION}}.dmg">macOS (Universal)<!-- <img class="universal" src="img/universal.png" alt="The macOS universal logo indicating that this software runs on Apple Silicon and Intel Macs" title="Universal Binary for Apple Silicon and Intel" />--></a>
+					<ul><li><em>On newer versions of macOS a warning may appear. This is common with open source software, and the program can still be opened by right-clicking and pressing the 'open' button.</em></li></ul>
+				</li>
+				<li>
+					Linux
+					<ul>
+						<li><a href="https://snapcraft.io/micropad"><img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a></li>
+						<li><a target="_blank" href="https://aur.archlinux.org/packages/micropad/">
+							AUR (Arch Linux/Antergos/Manjaro)
+						</a>: <code>yay -S micropad</code></li>
+						<li><a target="_blank" download="" href="https://github.com/MicroPad/MicroPad-Electron/releases/download/v{{VERSION}}/micropad_{{VERSION}}_amd64.deb">
+							Debian/Ubuntu/Linux Mint Package (.deb)
+						</a></li>
+						<li><a target="_blank" download="" href="https://github.com/MicroPad/MicroPad-Electron/releases/download/v{{VERSION}}/micropad-{{VERSION}}.x86_64.rpm">
+							Fedora/openSUSE Package (.rpm)
+						</a></li>
+						<li><a target="_blank" download="" href="https://github.com/MicroPad/MicroPad-Electron/releases/download/v{{VERSION}}/micropad-{{VERSION}}-x86_64.AppImage">
+							AppImage
+						</a> (<code>chmod a+x micropad-{{VERSION}}-x86_64.AppImage; ./micropad-{{VERSION}}-x86_64.AppImage</code>)</li>
+					</ul>
+				</li>
+			</ul>
+
+			<a href="https://github.com/MicroPad">Get the source on GitHub</a>
+		</div>
+
+		<div id="features">
+			<h1>Features</h1>
+
+			<p>
+				<h2>Infinite Canvas</h2>
+				Note-taking is a very different task to document-writing, and being restricted to a vertical page limits you. We think taking notes is better on a whiteboard than on a lined sheet of paper. μPad provides an infinite canvas for your ideas, letting you structure your thoughts as you please.
+			</p>
+
+			<p>
+				<h2>Truly Cross-Platform</h2>
+				The web-client works on any modern browser + the app works on Windows, macOS, and Linux.
+			</p>
+
+			<p>
+				<h2>Get your notes anywhere with <a target="_blank" href="/sync">μSync</a></h2>
+				μSync is built right into μPad providing a complete and seamless experience. μSync will keep your notes in sync across all of your devices quickly and securely with server-side AES-256 encryption. You can also use client-side encryption for seamless end-to-end security and privacy.
+			</p>
+
+			<p>
+				<h2><a target="_blank" href="/sync">μSync</a> Collaboration</h2>
+				Through the power of μSync, you can share your notebooks with other people. With this feature, μPad is the best way to ensure that your group projects stay as hassle free as they can be.
+			</p>
+
+			<p>
+				<h2>Evernote Import & Markdown Import</h2>
+				<a target="_blank" rel="noreferrer" href="https://help.evernote.com/hc/en-us/articles/209005557-How-to-back-up-export-and-restore-import-notes-and-notebooks">Export your notes to the <code>enex</code> format</a>, and they can instantly be uploaded and imported into μPad.<br/><br/>
+
+				You can also select a bunch of <em>markdown</em> files to import and μPad will seamlessly turn them into a notebook allowing you to take those notes to the next level.
+			</p>
+
+			<p>
+				<h2>Unlimited Organisation</h2>
+				Notebooks can hold unlimited sections, and every section can have notes <em>and</em> other sections in it. This allows for a notepad that can handle anything from planning lunch, to planning the development of an open source notebook app 🤔.
+			</p>
+
+			<p>
+				<h2>Hashtags - Tagging notes without any effort</h2>
+				If you put a simple "#todo" in a note, MicroPad will automatically link it to all of the other notes that also have "#todo" in them across <em>all</em> of your notebooks. This makes <a target="_blank" href="img/feats/global-search.png">searching</a> and tagging for notes super easy.
+			</p>
+
+			<p>
+				<h2>PDF Embedding</h2>
+				You can <a target="_blank" href="img/feats/pdf.png">embed PDF documents</a> anywhere you want in your notes.
+			</p>
+
+			<p>
+				<h2>Due Dates</h2>
+				On every element in a note you can assign a due-date. In the side-bar, a <a target="_blank" href="img/feats/due-dates.png">quick overview of all of your due-dates</a> makes sure you don't get a nasty shock.
+			</p>
+
+			<p>
+				<h2>Markdown Editor</h2>
+				Markdown is a way to format text without having to lift your hands off of the keyboard. This standard is built right into μPad with helpful additions like: mathematics, todo lists, and tables.
+			</p>
+
+			<p>
+				<h2>Client-side Encryption</h2>
+				Your notes are <em>your</em> notes. MicroPad lets you keep your privacy with AES-256 client-side encryption.
+			</p>
+
+		</div>
+	</div>
+</body>
+</html>

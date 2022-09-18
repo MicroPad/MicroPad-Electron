@@ -106,10 +106,8 @@ jobs:
         if: steps.core-cache.outputs.cache-hit != 'true'
         run: exit 1
 
-      # Deps
       - name: Install Node deps
         run: yarn install --immutable
-
       - name: Package & Publish (if draft release exists)
         run: yarn dist
 
@@ -158,4 +156,38 @@ jobs:
           yarn build
           yarn electron-builder
 
+  update-snap-store:
+    needs: [package-linux]
+    runs-on: ubuntu-latest
+    env:
+      SNAPCRAFT_TOKEN: ${{ secrets.SNAPCRAFT_TOKEN }}
+    steps:
+      - run: |
+          sudo snap install snapcraft --classic
+          echo $SNAPCRAFT_TOKEN > credentials
+          snapscraft login --with credentials
+          snapcraft push dist/*.snap --release candidate
 
+  update-website:
+    runs-on: ubuntu-latest
+    needs: [package-linux, package-macos, package-windows]
+    steps:
+      - name: Get deps
+        run: |
+          # Latest version of https://mustache.github.io/ for bash as of 18/9/22
+          curl -sSL https://raw.githubusercontent.com/tests-always-included/mo/67ba8bae2cd5dd5a820568bd233ff7ee10406cb7/mo -o mo
+          chmod +x ./mo
+      - name: Generate HTML
+        run: |
+          VERSION=$(npm pkg get version | sed 's/"//g')
+          cat www/index.html | ./mo > www/index.html
+          echo www/index.html
+      - name: Upload HTML
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_DEST: ${{ secrets.DEPLOY_DEST }}
+        run: |
+          echo "$DEPLOY_KEY" > key
+          scp -i ./key -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
+          rm key
