@@ -37,6 +37,6 @@ jobs:
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
           DEPLOY_DEST: ${{ secrets.DEPLOY_DEST }}
         run: |
-          echo "$DEPLOY_KEY" > key
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./key -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
+          echo "$DEPLOY_KEY" | ssh-add -
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
           rm key
