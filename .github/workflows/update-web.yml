@@ -30,13 +30,13 @@ jobs:
         run: |
           VERSION=$(npm pkg get version | sed 's/"//g')
           cat www/index.html | ./mo > www/index.html
-      - run: cat www/index.html
       - name: Upload HTML
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
           DEPLOY_DEST: ${{ secrets.DEPLOY_DEST }}
         run: |
+          eval `ssh-agent -s`
           echo "$DEPLOY_KEY" | ssh-add -
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P $DEPLOY_PORT www/index.html "$DEPLOY_DEST"
           rm key
