@@ -30,7 +30,7 @@ jobs:
         run: |
           VERSION=$(npm pkg get version | sed 's/"//g')
           cat www/index.html | ./mo > www/index.html
-          cat www/index.html
+      - run: cat www/index.html
       - name: Upload HTML
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
