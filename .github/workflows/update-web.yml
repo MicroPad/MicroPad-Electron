@@ -31,11 +31,12 @@ jobs:
           cat www/index.html | VERSION=$(npm pkg get version | sed 's/"//g') ./mo > index.html
           cat index.html
       - name: Upload HTML
+        uses: oracle-actions/run-oci-cli-command@v1.1
         env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_DEST: ${{ secrets.DEPLOY_DEST }}
-        run: |
-          eval `ssh-agent -s`
-          echo "$DEPLOY_KEY" | ssh-add -
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P $DEPLOY_PORT index.html "$DEPLOY_DEST"
+          OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+          OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+          OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+          OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+          OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+        with:
+          command: os object put -bn micropad-www --file index.html --content-type text/html --force
