@@ -10,7 +10,6 @@ let window: BrowserWindow | null;
 
 function createWindow() {
 	protocol.handle('file', (req) => {
-		console.log(req.url);
 		let file = new URL(req.url).pathname;
 		return net.fetch(new URL(path.join(__dirname, 'core', file), 'file:').toString(), {
 			bypassCustomProtocolHandlers: true
