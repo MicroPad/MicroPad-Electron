@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu, protocol, shell } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu, protocol, shell, net } from 'electron';
 import * as path from 'path';
 import ContextMenu from 'electron-context-menu';
 import { getDicts } from './dicts';
@@ -9,10 +9,12 @@ const IS_DEV = process.argv.slice(2).includes('--is-dev');
 let window: BrowserWindow | null;
 
 function createWindow() {
-	protocol.interceptFileProtocol('file', (req, callback) => {
-		let url = req.url.substring(5);
-		url = path.normalize(path.join(__dirname, 'core', url)).split('?')[0];
-		callback(url);
+	protocol.handle('file', (req) => {
+		console.log(req.url);
+		let file = new URL(req.url).pathname;
+		return net.fetch(new URL(path.join(__dirname, 'core', file), 'file:').toString(), {
+			bypassCustomProtocolHandlers: true
+		});
 	});
 
 	const windowState = windowStateKeeper({
@@ -44,6 +46,7 @@ function createWindow() {
 	windowState.manage(window);
 
 	window.webContents.session.setSpellCheckerEnabled(false);
+	window.webContents.setUserAgent(window.webContents.getUserAgent().replaceAll('µPad', 'MicroPad'));
 
 	ipcMain.on('initialShouldSpellCheck', (_event, shouldSpellCheck) => {
 		const appMenu = Menu.buildFromTemplate([
