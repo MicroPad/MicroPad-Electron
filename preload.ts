@@ -1,7 +1,7 @@
 import { ipcRenderer, webFrame } from 'electron';
-import * as fs from 'node:fs/promises';
 import localforage from 'localforage';
 import { getDicts } from './dicts';
+
 const { contextBridge } = require('electron')
 
 let userDict: Set<string> = new Set();

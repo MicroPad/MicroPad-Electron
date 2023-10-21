@@ -1,6 +1,5 @@
 import { readFile as nodeReadFile } from 'node:fs/promises';
 import * as path from 'path';
-/** @type {import('./types/typo-js')} */
 import Typo from 'typo-js';
 
 export async function getDicts(){
