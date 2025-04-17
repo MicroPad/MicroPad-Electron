@@ -28,8 +28,8 @@
 		"@types/mime": "^3.0.1",
 		"@types/node": "^18.7.18",
 		"@types/typo-js": "^1.2.1",
-		"electron": "=31.7.0",
-		"electron-builder": "^24.9.1",
+		"electron": "~31.7.7",
+		"electron-builder": "^26.0.12",
 		"typescript": "~5.2.2"
 	},
 	"dependencies": {
