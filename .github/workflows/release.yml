@@ -75,12 +75,12 @@ jobs:
 
       - name: Package & Publish (if draft release exists)
         run: yarn dist
-#      - name: Publish to Snap Store
-#        env:
-#          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
-#        run: |
-#          sudo snap install snapcraft --classic
-#          snapcraft push "dist/micropad_$(npm pkg get version | sed 's/"//g')_amd64.snap" --release candidate
+      - name: Publish to Snap Store
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
+        run: |
+          sudo snap install snapcraft --classic
+          snapcraft push "dist/micropad_$(npm pkg get version | sed 's/"//g')_amd64.snap" --release candidate
 
   package-macos:
     needs: [prepare-posix]
