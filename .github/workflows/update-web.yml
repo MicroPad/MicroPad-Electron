@@ -40,3 +40,13 @@ jobs:
           OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
         with:
           command: os object put -bn micropad-www --file index.html --content-type text/html --force
+
+  publish-snap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Promote snap to stable
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
+        run: |
+          snapcraft release micropad $(snapcraft list-revisions micropad | awk 'NR==2 {print $1}') stable
