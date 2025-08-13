@@ -49,4 +49,5 @@ jobs:
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
         run: |
+          sudo snap install snapcraft --classic
           snapcraft release micropad $(snapcraft list-revisions micropad | awk 'NR==2 {print $1}') stable
