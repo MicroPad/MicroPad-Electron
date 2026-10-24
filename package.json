@@ -86,6 +86,7 @@
 			}
 		},
 		"mac": {
+			"icon": "build/icon.png",
 			"target": {
 				"target": "dmg",
 				"arch": "universal"
@@ -93,6 +94,7 @@
 			"category": "public.app-category.productivity"
 		},
 		"win": {
+			"icon": "build/icon.png",
 			"target": [
 				{
 					"target": "nsis",
