@@ -5,6 +5,7 @@
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
+		"postinstall": "patch-package",
 		"start": "yarn build && yarn electron . --is-dev --no-sandbox",
 		"build": "yarn tsc -p tsconfig.json",
 		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/v$(node -p \"require('./package.json').coreVersion\")/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/dist/*.map && cp -r build ../core && cd .. && rm -rf tmp",
@@ -29,6 +30,7 @@
 		"@types/node": "^18.7.18",
 		"electron": "~44.3.0",
 		"electron-builder": "^26.15.3",
+		"patch-package": "^8.0.1",
 		"typescript": "^7"
 	},
 	"dependencies": {
