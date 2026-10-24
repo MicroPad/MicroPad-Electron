@@ -1,15 +1,15 @@
 {
 	"name": "micropad",
-	"version": "4.7.0",
+	"version": "4.7.0-1",
+	"coreVersion": "4.7.0",
 	"description": "A powerful note-taking app that helps you organise + take notes without restrictions.",
 	"main": "main.js",
 	"scripts": {
 		"start": "yarn build && yarn electron . --is-dev --no-sandbox",
 		"build": "yarn tsc -p tsconfig.json",
-		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/v${npm_package_version}/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/dist/*.map && cp -r build ../core && cd .. && rm -rf tmp",
+		"update-core": "rm -rf core && rm -rf tmp && mkdir tmp && wget https://github.com/MicroPad/MicroPad-Core/releases/download/v$(node -p \"require('./package.json').coreVersion\")/micropad.tar.xz -P ./tmp && cd tmp && tar -xf micropad.tar.xz && rm build/dist/*.map && cp -r build ../core && cd .. && rm -rf tmp",
 		"pack": "yarn build && yarn electron-builder --dir",
-		"dist": "yarn build && yarn electron-builder",
-		"windows:version": "echo %npm_package_version%"
+		"dist": "yarn build && yarn electron-builder"
 	},
 	"repository": {
 		"type": "git",
@@ -27,19 +27,15 @@
 	"devDependencies": {
 		"@types/mime": "^3.0.1",
 		"@types/node": "^18.7.18",
-		"@types/typo-js": "^1.2.1",
-		"electron": "~31.7.7",
-		"electron-builder": "^26.0.12",
-		"@typescript/native-preview": "7.0.0-dev.20250809.1"
+		"electron": "~44.3.0",
+		"electron-builder": "^26.15.3",
+		"typescript": "^7"
 	},
 	"dependencies": {
-		"dictionary-en": "^3.0.0",
-		"dictionary-en-au": "^2.1.1",
 		"electron-context-menu": "^3.1.2",
 		"electron-window-state": "^5.0.3",
 		"localforage": "^1.10.0",
-		"mime": "^3.0.0",
-		"typo-js": "^1.2.3"
+		"mime": "^3.0.0"
 	},
 	"build": {
 		"appId": "com.getmicropad.micropad",
@@ -57,7 +53,6 @@
 					"target": "tar.gz",
 					"arch": [
 						"x64",
-						"armv7l",
 						"arm64"
 					]
 				},
@@ -65,7 +60,6 @@
 					"target": "AppImage",
 					"arch": [
 						"x64",
-						"armv7l",
 						"arm64"
 					]
 				},
@@ -94,8 +88,7 @@
 				"target": "dmg",
 				"arch": "universal"
 			},
-			"category": "public.app-category.productivity",
-			"identity": null
+			"category": "public.app-category.productivity"
 		},
 		"win": {
 			"target": [
