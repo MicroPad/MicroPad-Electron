@@ -1,29 +1,24 @@
 import { app, BrowserWindow, dialog, ipcMain, Menu, protocol, shell, net } from 'electron';
 import * as path from 'path';
+import { pathToFileURL } from 'url';
 import ContextMenu from 'electron-context-menu';
 import windowStateKeeper from 'electron-window-state';
 
 const IS_DEV = process.argv.slice(2).includes('--is-dev');
+const CORE_DIR = path.join(__dirname, 'core');
 
-/* Chromium's built-in spellchecker. On macOS it hands off to the OS checker and
- * works out the language itself, so this list is ignored there; everywhere else
- * it needs to be told, and downloads the matching hunspell dictionaries from the
- * Chromium CDN the first time it needs them.
- *
- * There is no en-NZ dictionary -- Chromium ships en, en-AU, en-CA, en-GB,
- * en-GB-oxendict and en-US -- so en-GB stands in for it, NZ English following
- * the same -ise/-our spellings. A word is only flagged when it is missing from
- * every language in this list. */
 const SPELLCHECK_LANGUAGES = ['en-AU', 'en-GB', 'en-US'];
 
 let window: BrowserWindow | null;
 
 function createWindow() {
+	// Route file URIs correctly so our web workers don't just dieeee
+	const coreUrl = pathToFileURL(CORE_DIR).toString() + '/';
 	protocol.handle('file', (req) => {
-		let file = new URL(req.url).pathname;
-		return net.fetch(new URL(path.join(__dirname, 'core', file), 'file:').toString(), {
-			bypassCustomProtocolHandlers: true
-		});
+		const url = req.url.startsWith(coreUrl)
+			? req.url
+			: new URL(path.join(CORE_DIR, new URL(req.url).pathname), 'file:').toString();
+		return net.fetch(url, { bypassCustomProtocolHandlers: true });
 	});
 
 	const windowState = windowStateKeeper({
@@ -112,7 +107,7 @@ function createWindow() {
 	});
 
 
-	window.loadURL(new URL('index.html', 'file:').toString());
+	window.loadURL(pathToFileURL(path.join(CORE_DIR, 'index.html')).toString());
 
 	window.webContents.setWindowOpenHandler(details => {
 		shell.openExternal(details.url);
